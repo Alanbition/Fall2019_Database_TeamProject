@@ -17,3 +17,5 @@
 - git checkout master
 
 - git merge Ruoyun
+
+- git push
