@@ -1,6 +1,7 @@
 [on master]
 
 - git checkout Ruoyun
+- git pull origin master
 
 [on Ruoyun]
 
