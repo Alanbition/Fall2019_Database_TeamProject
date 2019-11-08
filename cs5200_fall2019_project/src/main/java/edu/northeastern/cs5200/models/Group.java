@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,7 +16,8 @@ public class Group {
 	private int activePoint;
 	@ManyToOne
 	private Employee employee;
-	
+	@ManyToMany
+	//private List<Student> students;
 	public String getName() {
 		return name;
 	}
