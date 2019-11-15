@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Group {
@@ -16,6 +17,9 @@ public class Group {
 	private int activePoint;
 	@ManyToOne
 	private Employee employee;
+	
+	//TODO: uncomment when student are added
+	//TODO: add getters and setters for it
 	@ManyToMany
 	//private List<Student> students;
 	public String getName() {
