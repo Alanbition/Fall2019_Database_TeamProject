@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Employee extends Person{
@@ -18,8 +19,8 @@ public class Employee extends Person{
 	private String jobTitle;
 	private int activePoint;
 	
-	@OneToMany( mappedBy = "employee")
-	private List<Group> groups;
+	@OneToOne( mappedBy = "employee")
+	private Group group;
 
 
 	public Employee() {}
@@ -56,12 +57,12 @@ public class Employee extends Person{
 		this.activePoint = activePoint;
 	}
 
-	public List<Group> getGroups() {
-		return groups;
+	public Group getGroup() {
+		return group;
 	}
 
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 	
 	
