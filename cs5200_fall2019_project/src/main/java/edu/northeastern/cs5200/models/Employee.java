@@ -22,6 +22,11 @@ public class Employee extends Person{
 	@OneToOne( mappedBy = "employee")
 	private Group group;
 
+	@OneToMany(mappedBy = "employee")
+	private List<MockInterviewRequest> MockInterviewRequests;
+	
+	@OneToMany(mappedBy = "employee")
+	private List<ReferralRequest> ReferralRequests;
 
 	public Employee() {}
 	
@@ -63,6 +68,22 @@ public class Employee extends Person{
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	public List<MockInterviewRequest> getMockInterviewRequests() {
+		return MockInterviewRequests;
+	}
+
+	public void setMockInterviewRequests(List<MockInterviewRequest> mockInterviewRequests) {
+		MockInterviewRequests = mockInterviewRequests;
+	}
+
+	public List<ReferralRequest> getReferralRequests() {
+		return ReferralRequests;
+	}
+
+	public void setReferralRequests(List<ReferralRequest> referralRequests) {
+		ReferralRequests = referralRequests;
 	}
 	
 	
