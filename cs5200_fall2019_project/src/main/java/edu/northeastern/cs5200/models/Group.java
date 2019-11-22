@@ -15,7 +15,7 @@ public class Group {
 	private int id;
 	private String name;
 	private int activePoint;
-	@ManyToOne
+	@OneToOne
 	private Employee employee;
 	
 	//TODO: uncomment when student are added
