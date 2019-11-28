@@ -19,7 +19,11 @@ public class Student extends User{
 
 	@OneToMany(mappedBy="thisStudent_job_applied", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Applied_job_lists> jobsApplied_by_thisStudent;
+	private List<Applied_Job_Lists> jobsApplied_by_thisStudent;
+	
+	@OneToMany(mappedBy="thisStudent_resume", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Resume> resumes_for_thisStudent;	
 	
 	
 	
@@ -74,17 +78,31 @@ public class Student extends User{
 	}
 	
 	
-	public void jobsApplied_by_thisStudent(Applied_job_lists jobs) {
+	public void jobsApplied_by_thisStudent(Applied_Job_Lists jobs) {
 		this.jobsApplied_by_thisStudent.add(jobs);
 		if (jobs.getThisStudent_job_applied() != this)
 			jobs.setthisStudent_job_applied(this);
 	}
 	
-	public List<Applied_job_lists> getJobsApplied_by_thisStudent(){
+	public List<Applied_Job_Lists> getJobsApplied_by_thisStudent(){
 		return jobsApplied_by_thisStudent;
 	}
 	
-	public void setJobsApplied_by_thisStudent(List<Applied_job_lists> jobsApplied_by_thisStudent) {
+	public void setJobsApplied_by_thisStudent(List<Applied_Job_Lists> jobsApplied_by_thisStudent) {
 		this.jobsApplied_by_thisStudent = jobsApplied_by_thisStudent;
+	}
+	
+	public void resumes_for_thisStudent(Resume resume) {
+		this.resumes_for_thisStudent.add(resume);
+		if (resume.getThisStudent_resume() != this)
+			resume.setThisStudent_resume(this);
+	}
+	
+	public List<Resume> getResumes_for_thisStudent(){
+		return resumes_for_thisStudent;
+	}
+	
+	public void setResumes_for_thisStudent(List<Resume> resumes_for_thisStudent) {
+		this.resumes_for_thisStudent = resumes_for_thisStudent;
 	}
 }
