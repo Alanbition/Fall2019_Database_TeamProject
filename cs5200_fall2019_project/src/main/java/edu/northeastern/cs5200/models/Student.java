@@ -1,4 +1,4 @@
-package edu.northeastern.cs5200.entities;
+package edu.northeastern.cs5200.models;
 
 import java.util.List;
 import org.hibernate.annotations.OnDelete;
@@ -32,8 +32,8 @@ public class Student extends User{
 		super();
 	}
 	
-	public Student(String first_name, String last_name, String password, String email, Integer major, Boolean verified, Integer degree) {
-		super(first_name, last_name, password, email);
+	public Student(String firstName, String lastName, String password, String email, Integer major, Boolean verified, Integer degree) {
+		super(firstName, lastName, password, email);
 		this.major = major;
 		this.verified = verified;
 		this.degree = degree;

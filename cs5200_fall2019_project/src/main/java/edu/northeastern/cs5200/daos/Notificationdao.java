@@ -28,7 +28,5 @@ public class Notificationdao {
 		req.setReceived(true); 
 		NotificationRepository.save(req);
 		return req;
-		
 	}
-
 }

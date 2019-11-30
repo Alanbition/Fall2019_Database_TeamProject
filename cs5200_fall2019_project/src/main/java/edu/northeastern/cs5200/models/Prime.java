@@ -1,6 +1,7 @@
 package edu.northeastern.cs5200.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,19 +40,19 @@ public class Prime {
 	}
 
 	public Date getDuedate() {
-		return duedate;
+		return Duedate;
 	}
 
 	public void setDuedate(Date duedate) {
-		this.duedate = duedate;
+		this.Duedate = duedate;
 	}
 
 	public Boolean getAutorenew() {
-		return autorenew;
+		return Autorenew;
 	}
 
 	public void setAutorenew(Boolean autorenew) {
-		this.autorenew = autorenew;
+		this.Autorenew = autorenew;
 	}
 
 	public Student getStudent() {

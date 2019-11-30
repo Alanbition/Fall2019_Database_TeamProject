@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import edu.northeastern.cs5200.models.Job;
+import edu.northeastern.cs5200.models.Recruiter;
 import edu.northeastern.cs5200.repositories.JobRespository;
 
 @Controller("JobsDao")
@@ -12,19 +14,19 @@ import edu.northeastern.cs5200.repositories.JobRespository;
 public class JobsDao {
 	@Autowired
 	
-	JobRespository jobrespositoty;
+	JobRespository jobRespository;
 	
 	public void deleteJob() {
-		JobRespository.deleteAll();
+		jobRespository.deleteAll();
 		
 	}
 	public void createJob() {
-		return JobRepository.save(job);
+		return jobRespository.save(job);
 	}
 
 	public Job setRecruiterForJob(Recruiter recruiter, Job job) {
 		job.setRecruiter(recruiter);
-    	JobRespository.save(job);
+		jobRespository.save(job);
     	
     	return job;
     }

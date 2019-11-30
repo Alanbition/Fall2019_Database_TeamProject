@@ -1,5 +1,6 @@
 package edu.northeastern.cs5200.daos;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ public class ApplicationDao {
 	ApplicationRepository applicationRepository;
 
 	public void deleteApplication() {
-		ApplicationRespository.deleteAll();
+		applicationRepository.deleteAll();
 		
 	}
 	public void createApplication() {
-		return ApplicationRepository.save(application);
+		return applicationRepository.save(application);
 	}
 
 	public Application setRecruiterForApplication(Recruiter recruiter, Application application) {

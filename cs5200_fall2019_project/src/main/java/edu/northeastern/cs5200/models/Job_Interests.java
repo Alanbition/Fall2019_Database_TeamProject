@@ -1,4 +1,4 @@
-package edu.northeastern.cs5200.entities;
+package edu.northeastern.cs5200.models;
 import java.util.List;
 
 import javax.persistence.Entity;

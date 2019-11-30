@@ -1,4 +1,4 @@
-package edu.northeastern.cs5200.entities;
+package edu.northeastern.cs5200.models;
 
 import java.util.List;
 import org.hibernate.annotations.OnDelete;
@@ -50,7 +50,7 @@ public class Resume {
 	public void resume_education_backgrounds(Education_Background eb) {
 		this.resume_education_backgrounds.add(eb);
 		if (eb.getThis_resume_education_background() != this)
-			eb.sethis_resume_education_background(this);
+			eb.setThis_resume_education_background(this);
 	}
 	
 	public List<Education_Background> getResume_education_backgrounds(){
@@ -79,8 +79,8 @@ public class Resume {
 	//For Industrial Experience
 	public void resume_industrial_experiences(Industrial_Experience ie) {
 		this.resume_industrial_experiences.add(ie);
-		if (ie.getThis_resume_education_background() != this)
-			ie.setThis_resume_education_background(this);
+		if (ie.getThis_resume_industrial_experience() != this)
+			ie.setThis_resume_industrial_experience(this);
 	}
 	
 	public List<Industrial_Experience> getResume_industrial_experiences(){

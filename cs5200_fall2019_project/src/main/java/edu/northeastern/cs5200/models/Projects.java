@@ -1,4 +1,4 @@
-package edu.northeastern.cs5200.entities;
+package edu.northeastern.cs5200.models;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +31,8 @@ public class Projects{
 	public Projects(String project_name, String description, Date start_date, Date end_date) {
 		this.project_name = project_name;
 		this.description = description;
-		this.start_date = end_date;
+		this.start_date = start_date;
+		this.end_date = end_date;
 	}
 	
 	public int getId() {

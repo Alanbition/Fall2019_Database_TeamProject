@@ -1,4 +1,4 @@
-package edu.northeastern.cs5200.entities;
+package edu.northeastern.cs5200.models;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,16 +9,16 @@ public class User {
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	private String password;
 	private String email;
 	
 	public User() {}
 	
-	public User(String first_name, String last_name, String password, String email) {
-		this.first_name = first_name;
-		this.last_name = last_name;
+	public User(String firstName, String lastName, String password, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 	}	
@@ -29,17 +29,17 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getfirst_name() {
-		return first_name;
+	public String getfirstName() {
+		return firstName;
 	}
-	public void setfirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setfirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLast_name(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getPassword() {
 		return password;

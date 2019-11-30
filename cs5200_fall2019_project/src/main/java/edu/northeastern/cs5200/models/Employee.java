@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Employee extends Person{
+public class Employee extends User{
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
