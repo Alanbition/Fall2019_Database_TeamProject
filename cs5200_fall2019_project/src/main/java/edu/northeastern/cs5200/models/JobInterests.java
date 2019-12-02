@@ -14,21 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Entity
 
-public class Job_Interests {
+public class JobInterests {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String job_title;
+	private String jobTitle;
 	private String skills;
 	private String location;
 	@ManyToOne()
-	private Student thisStudent_job_interests;
+	private Student thisStudentJobInterests;
 	
-	public Job_Interests() {}
+	public JobInterests() {}
 	
-	public Job_Interests(String job_title, String skills, String location) {
-		this.job_title = job_title;
+	public JobInterests(String jobTitle, String skills, String location) {
+		this.jobTitle = jobTitle;
 		this.skills = skills;
 		this.location = location;
 	}
@@ -39,11 +39,11 @@ public class Job_Interests {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getJob_title() {
-		return job_title;
+	public String getJobTitle() {
+		return jobTitle;
 	}
-	public void setJob_title(String job_title) {
-		this.job_title = job_title;
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 	public String getSkills() {
 		return skills;
@@ -57,13 +57,13 @@ public class Job_Interests {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Student getThisStudent_job_interests() {
-		return thisStudent_job_interests;
+	public Student getThisStudentJobInterests() {
+		return thisStudentJobInterests;
 	}
-	public void setThisStudent_job_interests(Student thisStudent_job_interests) {
-		this.thisStudent_job_interests =  thisStudent_job_interests;
-		if (!thisStudent_job_interests.getJobs_for_thisStudent().contains(this)) {
-			thisStudent_job_interests.getJobs_for_thisStudent().add(this);
+	public void setThisStudentJobInterests(Student thisStudentJobInterests) {
+		this.thisStudentJobInterests =  thisStudentJobInterests;
+		if (!thisStudentJobInterests.getJobsForThisStudent().contains(this)) {
+			thisStudentJobInterests.getJobsForThisStudent().add(this);
 		}
 	}
 }

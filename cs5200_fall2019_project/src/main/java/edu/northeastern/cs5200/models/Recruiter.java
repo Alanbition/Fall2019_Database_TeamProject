@@ -1,3 +1,4 @@
+//JJ
 package edu.northeastern.cs5200.models;
 
 import java.util.List;
@@ -8,81 +9,71 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 @Entity
 
-public class Recruiter {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String fristName;
-	private String lastName;
-	private String password;
-	private String email;
-	private String verified;
+public class Recruiter extends User{
+	private Boolean verified;
 	private String jobTitle;
 	
 	public Recruiter() {}
 	
-	@OneToMany( mappedBy = "Job")
-	private List<Job> job;
-	
-	@OneToMany (mappedBy = "Application")
-	private List<Application> application;
-	
-//	@OneToMany (mappedBy = "Resume")
-//	private List<Resume> resume;
-	
-//	@OneToMany (mappedBy = "notification")
-//	private List<Notification> notification;
 
-	public Recruiter(String fristName, String lastName, String password, String email, String verified,
+	//For jobs OneToMany
+	@OneToMany(mappedBy = "thisRecruiterJobs")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Jobs> jobsCreatedByRecruiter;
+
+	public void jobsCreatedByRecruiter(Jobs job) {
+		this.jobsCreatedByRecruiter.add(job);
+		if (job.getThisRecruiterJobs() != this)
+			job.setThisRecruiterJobs(this);
+	}
+
+	public List<Jobs> getJobsCreatedByRecruiter(){
+		return jobsCreatedByRecruiter;
+	}
+	
+	public void setJobsCreatedByRecruiter(List<Jobs> jobsCreatedByRecruiter) {
+		this.jobsCreatedByRecruiter = jobsCreatedByRecruiter;
+	}
+
+
+	//For notification OneToMany	
+	@OneToMany (mappedBy = "thisRecruiterNotifications")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Notifications> notificationsForRecruiter;
+
+	public void notificationsForRecruiter(Notifications nots) {
+		this.notificationsForRecruiter.add(nots);
+		if (nots.getThisRecruiterNotifications() != this)
+			nots.setThisRecruiterNotifications(this);
+	}
+
+	public List<Notifications> getNotificationsForRecruiter(){
+		return notificationsForRecruiter;
+	}
+	
+	public void setNotificationsForRecruiter(List<Notifications> notificationsForRecruiter) {
+		this.notificationsForRecruiter = notificationsForRecruiter;
+	}
+
+
+	//
+
+	public Recruiter(String firstName, String lastName, String password, String email, Boolean verified,
 			String jobTitle) {
-		super();
-		this.fristName = fristName;
-		this.lastName = lastName;
-		this.password = password;
-		this.email = email;
+		super(firstName, lastName, password, email);
 		this.verified = verified;
 		this.jobTitle = jobTitle;
 	}
 
-	public String getFristName() {
-		return fristName;
-	}
-
-	public void setFristName(String fristName) {
-		this.fristName = fristName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getVerified() {
+	public Boolean getVerified() {
 		return verified;
 	}
 
-	public void setVerified(String verified) {
+	public void setVerified(Boolean verified) {
 		this.verified = verified;
 	}
 
@@ -94,15 +85,7 @@ public class Recruiter {
 		this.jobTitle = jobTitle;
 	}
 
-	public List<Job> getJob() {
-		return job;
-	}
 
-	public void setJobs(List<Job> job) {
-		this.job = job;
-	}
-	
-	
 	
 
 }

@@ -11,98 +11,120 @@ public class Resume {
 	private String skill;
 	@Column(name = "GPA")
 	private String GPA;
-	@OneToMany(mappedBy="this_resume_education_background", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisResumeEducationBackground", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Education_Background> resume_education_backgrounds;
-	
-	@OneToMany(mappedBy="this_resume_project", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Projects> resume_projects;	
-	
-	@OneToMany(mappedBy="this_resume_industrial_experience", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Industrial_Experience> resume_industrial_experiences;
-	
-	@OneToMany(mappedBy="this_resume_research_experience", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Research_Experience> resume_research_experiences;	
-	
-	@ManyToOne()
-	private Student thisStudent_resume;
-	public Student getThisStudent_resume() {
-		return thisStudent_resume;
+	private List<EducationBackground> resumeEducationBackgrounds;
+	//For Education_Backgroud
+	public void resumeEducationBackgrounds(EducationBackground eb) {
+		this.resumeEducationBackgrounds.add(eb);
+		if (eb.getThisResumeEducationBackground() != this)
+			eb.setThisResumeEducationBackground(this);
 	}
 	
-	public void setThisStudent_resume(Student thisStudent_resume) {
-		this.thisStudent_resume =  thisStudent_resume;
-		if (!thisStudent_resume.getResumes_for_thisStudent().contains(this)) {
-			thisStudent_resume.getResumes_for_thisStudent().add(this);
+	public List<EducationBackground> getResumeEducationBackgrounds(){
+		return resumeEducationBackgrounds;
+	}
+	
+	public void setResumeEducationBackgrounds(List<EducationBackground> resumeEducationBackgrounds) {
+		this.resumeEducationBackgrounds = resumeEducationBackgrounds;
+	}
+	//
+	//For Project
+	@OneToMany(mappedBy="thisResumeProject", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Projects> resumeProject;	
+	public void resumeProject(Projects pj) {
+		this.resumeProject.add(pj);
+		if (pj.getThisResumeProject() != this)
+			pj.setThisResumeProject(this);
+	}
+	
+	public List<Projects> getResumeProject(){
+		return resumeProject;
+	}
+	
+	public void setResumeProject (List<Projects> resumeProject) {
+		this.resumeProject = resumeProject;
+	}
+	//	
+
+	//For Industrial Experience
+
+	@OneToMany(mappedBy="thisResumeIndustrialExperience", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<IndustrialExperience> resumeIndustrialExperiences;
+
+	public void resumeIndustrialExperiences(IndustrialExperience ie) {
+		this.resumeIndustrialExperiences.add(ie);
+		if (ie.getThisResumeIndustrialExperience() != this)
+			ie.setThisResumeIndustrialExperience(this);
+	}
+	
+	public List<IndustrialExperience> getResumeIndustrialExperiences(){
+		return resumeIndustrialExperiences;
+	}
+	
+	public void setResumeIndustrialExperiences (List<IndustrialExperience> resumeIndustrialExperiences) {
+		this.resumeIndustrialExperiences = resumeIndustrialExperiences;
+	}
+
+	//For Research Experience
+
+	@OneToMany(mappedBy="thisResumeResearchExperience", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<ResearchExperience> resumeResearchExperiences;	
+	
+	public void resumeResearchExperiences(ResearchExperience re) {
+		this.resumeResearchExperiences.add(re);
+		if (re.getThisResumeResearchExperience() != this)
+			re.setThisResumeResearchExperience(this);
+	}
+	
+	public List<ResearchExperience> getResumeResearchExperiences(){
+		return resumeResearchExperiences;
+	}
+	
+	public void setResumeResearchExperiences(List<ResearchExperience> resumeResearchExperiences) {
+		this.resumeResearchExperiences = resumeResearchExperiences;
+	}
+	// Many to one for student
+	@ManyToOne()
+	private Student thisStudentResume;
+	public Student getThisStudentResume() {
+		return thisStudentResume;
+	}
+	
+	public void setThisStudentResume(Student thisStudentResume) {
+		this.thisStudentResume =  thisStudentResume;
+		if (!thisStudentResume.getResumesForThisStudent().contains(this)) {
+			thisStudentResume.getResumesForThisStudent().add(this);
 		}
 	}
 	
+
+	//Con
 	public Resume() {}
 	
 	public Resume(String skill, String GPA) {
 		this.skill = skill;
 		this.GPA = GPA;
-	}	
-	//For Education_Backgroudn
-	public void resume_education_backgrounds(Education_Background eb) {
-		this.resume_education_backgrounds.add(eb);
-		if (eb.getThis_resume_education_background() != this)
-			eb.setThis_resume_education_background(this);
 	}
-	
-	public List<Education_Background> getResume_education_backgrounds(){
-		return resume_education_backgrounds;
+
+	public String getSkill() {
+		return skill;
 	}
-	
-	public void setResume_education_backgrounds(List<Education_Background> resume_education_backgrounds) {
-		this.resume_education_backgrounds = resume_education_backgrounds;
+
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
-	
-	//For Project
-	public void resume_projects(Projects pj) {
-		this.resume_projects.add(pj);
-		if (pj.getThis_resume_project() != this)
-			pj.setThis_resume_project(this);
+
+	public String getGPA() {
+		return GPA;
 	}
-	
-	public List<Projects> getResume_projects(){
-		return resume_projects;
+
+	public void setGPA(String GPA) {
+		this.GPA = GPA;
 	}
-	
-	public void setResume_projects (List<Projects> resume_projects) {
-		this.resume_projects = resume_projects;
-	}
-	
-	//For Industrial Experience
-	public void resume_industrial_experiences(Industrial_Experience ie) {
-		this.resume_industrial_experiences.add(ie);
-		if (ie.getThis_resume_industrial_experience() != this)
-			ie.setThis_resume_industrial_experience(this);
-	}
-	
-	public List<Industrial_Experience> getResume_industrial_experiences(){
-		return resume_industrial_experiences;
-	}
-	
-	public void setResume_industrial_experiences (List<Industrial_Experience> resume_industrial_experiences) {
-		this.resume_industrial_experiences = resume_industrial_experiences;
-	}	
-	
-	//For Research Experience
-	public void resume_research_experiences(Research_Experience re) {
-		this.resume_research_experiences.add(re);
-		if (re.getThis_resume_research_experience() != this)
-			re.setThis_resume_research_experience(this);
-	}
-	
-	public List<Research_Experience> getResume_research_experiences(){
-		return resume_research_experiences;
-	}
-	
-	public void setResume_research_experiences(List<Research_Experience> resume_research_experiences) {
-		this.resume_research_experiences = resume_research_experiences;
-	}
+
+
 }

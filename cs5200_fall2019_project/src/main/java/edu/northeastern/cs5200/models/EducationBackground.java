@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Entity
-public class Education_Background {
+public class EducationBackground {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
@@ -22,19 +22,19 @@ public class Education_Background {
 	private String university;
 	private String degree;
 	private String major;
-	private Date start_date;
-	private Date end_date;
+	private Date startDate;
+	private Date endDate;
 	@ManyToOne()
-	private Resume this_resume_education_background;
+	private Resume thisResumeEducationBackground;
 	
-	public Education_Background() {}
+	public EducationBackground() {}
 	
-	public Education_Background(String university, String degree, String major, Date start_date, Date end_date) {
+	public EducationBackground(String university, String degree, String major, Date startDate, Date endDate) {
 		this.university = university;
 		this.degree = degree;
 		this.major = major;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	public int getId() {
 		return id;
@@ -63,27 +63,27 @@ public class Education_Background {
 		this.major = major;
 	}
 	
-	public Date getStart_date(){
-		return start_date;
+	public Date getStartDate(){
+		return startDate;
 	}
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	
-	public Date getEnd_date() {
-		return end_date;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}	
 	
-	public Resume getThis_resume_education_background() {
-		return this_resume_education_background;
+	public Resume getThisResumeEducationBackground() {
+		return thisResumeEducationBackground;
 	}
-	public void setThis_resume_education_background(Resume this_resume_education_background) {
-		this.this_resume_education_background = this_resume_education_background;
-		if (!this_resume_education_background.getResume_education_backgrounds().contains(this)) {
-			this_resume_education_background.getResume_education_backgrounds().add(this);
+	public void setThisResumeEducationBackground(Resume thisResumeEducationBackground) {
+		this.thisResumeEducationBackground = thisResumeEducationBackground;
+		if (!thisResumeEducationBackground.getResumeEducationBackgrounds().contains(this)) {
+			thisResumeEducationBackground.getResumeEducationBackgrounds().add(this);
 		}
 	}
 }

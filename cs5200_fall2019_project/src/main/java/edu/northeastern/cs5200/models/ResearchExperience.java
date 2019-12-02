@@ -14,29 +14,29 @@ import javax.persistence.Table;
 import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Entity
-public class Research_Experience {
+public class ResearchExperience {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String university;
 	private String professor;
-	private String job_title;
+	private String jobTitle;
 	private String description;
-	private Date start_date;
-	private Date end_date;
+	private Date startDate;
+	private Date endDate;
 	@ManyToOne()
-	private Resume this_resume_research_experience;
+	private Resume thisResumeResearchExperience;
 	
-	public Research_Experience() {}
+	public ResearchExperience() {}
 	
-	public Research_Experience(String university, String professor, String job_title, String description, Date start_date, Date end_date) {
+	public ResearchExperience(String university, String professor, String jobTitle, String description, Date startDate, Date endDate) {
 		this.university = university;
 		this.professor = professor;
-		this.job_title = job_title;
+		this.jobTitle = jobTitle;
 		this.description = description;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	public int getId() {
 		return id;
@@ -58,11 +58,11 @@ public class Research_Experience {
 		this.professor = professor;
 	}
 
-	public String getJob_title() {
-		return job_title;
+	public String getjobTitle() {
+		return jobTitle;
 	}
-	public void setJob_title(String job_title) {
-		this.job_title = job_title;
+	public void setjobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}	
 	
 	public String getDescription() {
@@ -72,27 +72,27 @@ public class Research_Experience {
 		this.description = description;
 	}
 	
-	public Date getStart_date(){
-		return start_date;
+	public Date getstartDate(){
+		return startDate;
 	}
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setstartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	
-	public Date getEnd_date() {
-		return end_date;
+	public Date getendDate() {
+		return endDate;
 	}
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setendDate(Date endDate) {
+		this.endDate = endDate;
 	}	
 	
-	public Resume getThis_resume_research_experience() {
-		return this_resume_research_experience;
+	public Resume getThisResumeResearchExperience() {
+		return thisResumeResearchExperience;
 	}
-	public void setThis_resume_research_experience(Resume this_resume_research_experience) {
-		this.this_resume_research_experience =  this_resume_research_experience;
-		if (!this_resume_research_experience.getResume_research_experiences().contains(this)) {
-			this_resume_research_experience.getResume_research_experiences().add(this);
+	public void setThisResumeResearchExperience(Resume thisResumeResearchExperience) {
+		this.thisResumeResearchExperience =  thisResumeResearchExperience;
+		if (!thisResumeResearchExperience.getResumeResearchExperiences().contains(this)) {
+			thisResumeResearchExperience.getResumeResearchExperiences().add(this);
 		}
 	}	
 	

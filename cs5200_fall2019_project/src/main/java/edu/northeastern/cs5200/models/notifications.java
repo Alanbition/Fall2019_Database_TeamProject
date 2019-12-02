@@ -9,22 +9,23 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-
 @Entity
-public class notifications {
+
+public class Notifications {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String message;
 	private Date time;
-	private int senderid;
-	private int receiverid;
+	private String senderType;
+	private String receiverType;
 
-	
-	@OneToMany( mappedBy = "notifications")
-	private Person person;
-	
+	@ManyToOne()
+	private Recruiter thisRecruiterNotifications;
+	@ManyToOne()
+	private Student thisStudentNotifications;
+	@ManyToOne()
+	private Employee thisEmployeeNotifications;	
 	
 	public int getId() {
 		return id;
@@ -44,17 +45,50 @@ public class notifications {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	public int getSenderid() {
-		return senderid;
+	public String getSenderType() {
+		return senderType;
 	}
-	public void setSenderid(int senderid) {
-		this.senderid = senderid;
+	public void setSenderType(String senderType) {
+		this.senderType = senderType;
 	}
-	public int getReceiverid() {
-		return receiverid;
+	public String getReceiverTyoe() {
+		return receiverType;
 	}
-	public void setReceiverid(int receiverid) {
-		this.receiverid = receiverid;
+	public void setReceiverType(String receiverType) {
+		this.receiverType = receiverType;
+	}
+
+	//Many To One for recruiter
+	public Recruiter getThisRecruiterNotifications() {
+		return thisRecruiterNotifications;
+	}
+	public void setThisRecruiterNotifications(Recruiter thisRecruiterNotifications) {
+		this.thisRecruiterNotifications =  thisRecruiterNotifications;
+		if (!thisRecruiterNotifications.getNotificationsForRecruiter().contains(this)) {
+			thisRecruiterNotifications.getNotificationsForRecruiter().add(this);
+		}
+	}
+
+	//Many To One for student
+	public Student getThisStudentNotifications() {
+		return thisStudentNotifications;
+	}
+	public void setThisStudentNotifications(Student thisStudentNotifications) {
+		this.thisStudentNotifications =  thisStudentNotifications;
+		if (!thisStudentNotifications.getNotificationsForStudent().contains(this)) {
+			thisStudentNotifications.getNotificationsForStudent().add(this);
+		}
+	}
+
+	//Many To One for employee
+	public Employee getThisEmployeeNotifications() {
+		return thisEmployeeNotifications;
+	}
+	public void setThisEmployeeNotifications(Employee thisEmployeeNotifications) {
+		this.thisEmployeeNotifications =  thisEmployeeNotifications;
+		if (!thisEmployeeNotifications.getNotificationsForEmployee().contains(this)) {
+			thisEmployeeNotifications.getNotificationsForEmployee().add(this);
+		}
 	}
 	
 }
