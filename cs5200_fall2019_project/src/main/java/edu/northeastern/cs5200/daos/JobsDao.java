@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.northeastern.cs5200.models.Job;
 import edu.northeastern.cs5200.models.Recruiter;
-import edu.northeastern.cs5200.repositories.JobRespository;
+import edu.northeastern.cs5200.repositories.JobRepository;
 
 @Controller("JobsDao")
 @Service
@@ -14,7 +14,7 @@ import edu.northeastern.cs5200.repositories.JobRespository;
 public class JobsDao {
 	@Autowired
 	
-	JobRespository jobRespository;
+	JobRepository jobRespository;
 	
 	public void deleteJob() {
 		jobRespository.deleteAll();
@@ -39,7 +39,7 @@ public class JobsDao {
 
    public Job setApplicationrForJob(Application application, Job job) {
 		job.setApplication(application);
-    	JobRespository.save(job);
+    	JobRepository.save(job);
     	
     	return job;
     }

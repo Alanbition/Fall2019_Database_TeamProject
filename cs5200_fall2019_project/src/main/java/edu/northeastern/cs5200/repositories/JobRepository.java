@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import edu.northeastern.cs5200.models.Group;
 
-public interface JobRespository extends CrudRepository<Group, Integer>{
+public interface JobRepository extends CrudRepository<Group, Integer>{
 
 }
