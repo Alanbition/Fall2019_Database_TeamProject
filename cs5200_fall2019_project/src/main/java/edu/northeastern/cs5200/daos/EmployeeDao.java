@@ -94,4 +94,8 @@ public class EmployeeDao {
 		return req;
 		
 	}
+	public Employee findEmployeeByCredentials(String email, String password) {
+		Employee e = employeeRepository.findEmployeeByCredentials(email, password);
+		return null;
+	}
 }
