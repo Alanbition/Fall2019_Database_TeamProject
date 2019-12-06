@@ -32,18 +32,18 @@ public class Resume {
 	//For Project
 	@OneToMany(mappedBy="thisResumeProject", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Projects> resumeProject;	
-	public void resumeProject(Projects pj) {
+	private List<Project> resumeProject;	
+	public void resumeProject(Project pj) {
 		this.resumeProject.add(pj);
 		if (pj.getThisResumeProject() != this)
 			pj.setThisResumeProject(this);
 	}
 	
-	public List<Projects> getResumeProject(){
+	public List<Project> getResumeProject(){
 		return resumeProject;
 	}
 	
-	public void setResumeProject (List<Projects> resumeProject) {
+	public void setResumeProject (List<Project> resumeProject) {
 		this.resumeProject = resumeProject;
 	}
 	//	

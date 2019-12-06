@@ -4,52 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import edu.northeastern.cs5200.repositories.RecruiterRespository;
+import edu.northeastern.cs5200.models.Job;
+import edu.northeastern.cs5200.models.Recruiter;
+import edu.northeastern.cs5200.repositories.JobRepository;
+import edu.northeastern.cs5200.repositories.RecruiterRepository;
 
 @Controller("RecruiterDao")
 @Service
 public class RecruiterDao {
 	@Autowired
-	RecruiterRespository recruiterRepository;
+	RecruiterRepository recruiterRepository;
+	@Autowired
+	JobRepository jobRepository;
 	
 	public void deleteRecruiter(){
 		recruiterRepository.deleteAll();
 	}
-	public void createRecruiter(){
+	public Recruiter createRecruiter(Recruiter recruiter){
 		return recruiterRepository.save(recruiter);
 	}
 
-	public Recruiter setJobForRecruiter(Recruiter recruiter, Job job) {
-		recruiter.setjob(job);
-		recruiterRepository.save(recruiter);
-    	return recruiter;
+    public Recruiter addJobToRecruiter(Job job, Recruiter recruiter){
+    	recruiter.jobsCreatedByRecruiter(job);
+    	jobRepository.save(job);
+    	return recruiterRepository.save(recruiter);
     }
-
-    public Job getRecruitercreatedJob (Recruiter recruiter){
-    	return recruiter.getJob();
-    }
-
-    public Recruiter setApplicationForRecruiter(Recruiter recruiter, Application application){
-    	recruiter.setapplication(application);
-    	recruiterRepository.save(recruiter);
-    	return recruiter;
-    }
-
-    public Application getRecruiterviewedJob(Recruiter recruiter){
-    	return recruiter.getapplication();
-    }
-
-	
-
-	
-		
-	}
-	
-
- 
-
-
-
-	
-
 }
+

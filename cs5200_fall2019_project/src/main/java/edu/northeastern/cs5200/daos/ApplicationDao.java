@@ -5,49 +5,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import edu.northeastern.cs5200.models.Application;
+import edu.northeastern.cs5200.models.Job;
 import edu.northeastern.cs5200.repositories.ApplicationRepository;
+import edu.northeastern.cs5200.repositories.JobRepository;
 
 @Controller("ApplicationDao")
-@Service
 public class ApplicationDao {
 	@Autowired
 	ApplicationRepository applicationRepository;
+	@Autowired
+	JobRepository jobRepository;
 
 	public void deleteApplication() {
 		applicationRepository.deleteAll();
-		
 	}
-	public void createApplication() {
+
+	public Application createApplication(Application application) {
 		return applicationRepository.save(application);
 	}
 
-	public Application setRecruiterForApplication(Recruiter recruiter, Application application) {
-		application.setRecruiter(recruiter);
-    	ApplicationRespository.save(application);
-    	
-    	return application;
+	public Application setApplicationForJob(Job job, Application application) {
+		application.setThisJobsApplications(job);
+    	jobRepository.save(job);
+    	return applicationRepository.save(application);
     }
-
-    public Recruiter getApplicationRecruiter(Application application) {
-		
-		return recruiter.getApplication();
-	}
-
-
-
-
-
-	public Application setApplicationForJob(Application application, Job job) {
-		application.setJob(job);
-    	ApplicationRespository.save(application);
-    	
-    	return application;
-    }
-
-    public Job getApplicaitonJob(Application application){
-    	return application.getJob();
-    }
-
-    public Application 
 
 }

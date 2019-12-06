@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Entity
-public class Projects{
+public class Project{
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
@@ -26,9 +26,9 @@ public class Projects{
 	@ManyToOne()
 	private Resume thisResumeProject;
 	
-	public Projects() {}
+	public Project() {}
 	
-	public Projects(String projectName, String description, Date startDate, Date endDate) {
+	public Project(String projectName, String description, Date startDate, Date endDate) {
 		this.projectName = projectName;
 		this.description = description;
 		this.startDate = startDate;

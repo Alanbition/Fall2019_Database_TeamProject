@@ -36,19 +36,19 @@ public class Employee extends User{
 	//For notification OneToMany	
 	@OneToMany (mappedBy = "thisEmployeeNotifications")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Notifications> notificationsForEmployee;
+	private List<Notification> notificationsForEmployee;
 
-	public void notificationsForEmployee(Notifications nots) {
+	public void notificationsForEmployee(Notification nots) {
 		this.notificationsForEmployee.add(nots);
 		if (nots.getThisEmployeeNotifications() != this)
 			nots.setThisEmployeeNotifications(this);
 	}
 
-	public List<Notifications> getNotificationsForEmployee(){
+	public List<Notification> getNotificationsForEmployee(){
 		return notificationsForEmployee;
 	}
 	
-	public void setNotificationsForEmployee(List<Notifications> notificationsForEmployee) {
+	public void setNotificationsForEmployee(List<Notification> notificationsForEmployee) {
 		this.notificationsForEmployee = notificationsForEmployee;
 	}
 

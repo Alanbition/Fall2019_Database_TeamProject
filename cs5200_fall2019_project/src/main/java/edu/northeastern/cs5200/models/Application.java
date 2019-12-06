@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 
-public class Applications {
+public class Application {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -33,12 +33,12 @@ public class Applications {
 	//
 	//Many To One for Jobs
 	@ManyToOne
-	private Jobs thisJobsApplications;
+	private Job thisJobsApplications;
 
-	public Jobs getThisJobsApplications() {
+	public Job getThisJobsApplications() {
 		return thisJobsApplications;
 	}
-	public void setThisJobsApplications(Jobs thisJobsApplications) {
+	public void setThisJobsApplications(Job thisJobsApplications) {
 		this.thisJobsApplications =  thisJobsApplications;
 		if (!thisJobsApplications.getApplicationsForThisJob().contains(this)) {
 			thisJobsApplications.getApplicationsForThisJob().add(this);
@@ -46,7 +46,7 @@ public class Applications {
 	}	
 	//
 
-	public Applications(String description, String referral, String process) {
+	public Application(String description, String referral, String process) {
 		super();
 		this.description = description;
 		this.referral = referral;
