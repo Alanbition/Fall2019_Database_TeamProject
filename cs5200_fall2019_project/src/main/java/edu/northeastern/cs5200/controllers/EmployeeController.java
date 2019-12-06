@@ -17,7 +17,7 @@ import edu.northeastern.cs5200.models.Group;
 import edu.northeastern.cs5200.repositories.EmployeeRepository;
 
 @RestController
-public class EmployeeContoller {
+public class EmployeeController {
 	@Autowired
 	EmployeeDao employeeDao;
 	//EmployeeRepository emloyeeRepository;
