@@ -22,6 +22,8 @@ public class NotificationDao {
 	EmployeeRepository employeeRepository;
 	@Autowired 
 	RecruiterRepository recruiterRepository;
+	@Autowired
+	UserRepository userRepository;	
 	
 	public void deleteNotification(){
 		notificationRepository.deleteAll();
