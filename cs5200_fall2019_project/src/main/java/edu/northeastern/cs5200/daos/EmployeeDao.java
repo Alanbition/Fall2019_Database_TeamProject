@@ -1,6 +1,7 @@
 package edu.northeastern.cs5200.daos;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,15 +24,30 @@ public class EmployeeDao {
 	public void deleteEmployee() {
 		employeeRepository.deleteAll();
 	}
+	public void deleteEmployeeById(int id) {
+		employeeRepository.deleteById(id);
+	}
 	
 	public Employee createEmployee(Employee employee) {
 		return employeeRepository.save(employee);
 	}
+	public Iterable<Employee> findAllEmployee() {
+		return employeeRepository.findAll();
+	}
 	
-	public Employee setGroupForEmployee(Employee employee, Group group) {
-		employee.setGroup(group);
-		employeeRepository.save(employee);
-    	return employee;
+	public Employee updateEmployee(int id, Employee employee) {
+		Employee e = employeeRepository.findEmployeeById(id);
+        e.setEmail(employee.getEmail());
+        e.setfirstName(employee.getfirstName());
+        e.setLast_name(employee.getLastName());
+        e.setPassword(employee.getPassword());
+        employeeRepository.save(e);
+        return e;
+	}
+	
+	public Employee findEmployeeById(int eid) {
+		Employee e = employeeRepository.findEmployeeById(eid);
+		return e;
     }
 
 	public Group getEmployeeManagedGroup(Employee employee) {
