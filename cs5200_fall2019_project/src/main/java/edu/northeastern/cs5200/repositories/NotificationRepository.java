@@ -1,6 +1,9 @@
 package edu.northeastern.cs5200.repositories;
 
-public interface NotificationRepository {
-	
+import org.springframework.data.repository.CrudRepository;
+
+import edu.northeastern.cs5200.models.Notification;
+
+public interface NotificationRepository extends CrudRepository<Notification, Integer>{
 
 }

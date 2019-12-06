@@ -23,19 +23,19 @@ public class Recruiter extends User{
 	//For jobs OneToMany
 	@OneToMany(mappedBy = "thisRecruiterJobs")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Jobs> jobsCreatedByRecruiter;
+	private List<Job> jobsCreatedByRecruiter;
 
-	public void jobsCreatedByRecruiter(Jobs job) {
+	public void jobsCreatedByRecruiter(Job job) {
 		this.jobsCreatedByRecruiter.add(job);
 		if (job.getThisRecruiterJobs() != this)
 			job.setThisRecruiterJobs(this);
 	}
 
-	public List<Jobs> getJobsCreatedByRecruiter(){
+	public List<Job> getJobsCreatedByRecruiter(){
 		return jobsCreatedByRecruiter;
 	}
 	
-	public void setJobsCreatedByRecruiter(List<Jobs> jobsCreatedByRecruiter) {
+	public void setJobsCreatedByRecruiter(List<Job> jobsCreatedByRecruiter) {
 		this.jobsCreatedByRecruiter = jobsCreatedByRecruiter;
 	}
 
@@ -43,19 +43,19 @@ public class Recruiter extends User{
 	//For notification OneToMany	
 	@OneToMany (mappedBy = "thisRecruiterNotifications")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Notifications> notificationsForRecruiter;
+	private List<Notification> notificationsForRecruiter;
 
-	public void notificationsForRecruiter(Notifications nots) {
+	public void notificationsForRecruiter(Notification nots) {
 		this.notificationsForRecruiter.add(nots);
 		if (nots.getThisRecruiterNotifications() != this)
 			nots.setThisRecruiterNotifications(this);
 	}
 
-	public List<Notifications> getNotificationsForRecruiter(){
+	public List<Notification> getNotificationsForRecruiter(){
 		return notificationsForRecruiter;
 	}
 	
-	public void setNotificationsForRecruiter(List<Notifications> notificationsForRecruiter) {
+	public void setNotificationsForRecruiter(List<Notification> notificationsForRecruiter) {
 		this.notificationsForRecruiter = notificationsForRecruiter;
 	}
 

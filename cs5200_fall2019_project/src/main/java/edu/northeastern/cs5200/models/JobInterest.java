@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Entity
 
-public class JobInterests {
+public class JobInterest {
 	@Id
 	@GeneratedValue
 	(strategy=GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class JobInterests {
 	@ManyToOne()
 	private Student thisStudentJobInterests;
 	
-	public JobInterests() {}
+	public JobInterest() {}
 	
-	public JobInterests(String jobTitle, String skills, String location) {
+	public JobInterest(String jobTitle, String skills, String location) {
 		this.jobTitle = jobTitle;
 		this.skills = skills;
 		this.location = location;

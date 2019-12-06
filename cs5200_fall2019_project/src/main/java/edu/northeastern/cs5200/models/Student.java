@@ -13,19 +13,19 @@ public class Student extends User{
 	//One To many for job interests
 	@OneToMany(mappedBy="thisStudentJobInterests", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<JobInterests> jobsForThisStudent;
+	private List<JobInterest> jobsForThisStudent;
 	
-	public void jobsForThisStudent(JobInterests job) {
+	public void jobsForThisStudent(JobInterest job) {
 		this.jobsForThisStudent.add(job);
 		if (job.getThisStudentJobInterests() != this)
 			job.setThisStudentJobInterests(this);
 	}
 	
-	public List<JobInterests> getJobsForThisStudent(){
+	public List<JobInterest> getJobsForThisStudent(){
 		return jobsForThisStudent;
 	}
 	
-	public void setJobsForThisStudent(List<JobInterests> jobsForThisStudent) {
+	public void setJobsForThisStudent(List<JobInterest> jobsForThisStudent) {
 		this.jobsForThisStudent = jobsForThisStudent;
 	}
 
@@ -51,19 +51,19 @@ public class Student extends User{
 	//One to Many for applications
 	@OneToMany(mappedBy="thisStudentApplications", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Applications> applicationsFromThisStudent;		
+	private List<Application> applicationsFromThisStudent;		
 	
-	public void applicationsFromThisStudent(Applications app) {
+	public void applicationsFromThisStudent(Application app) {
 		this.applicationsFromThisStudent.add(app);
 		if (app.getThisStudentApplications() != this)
 			app.setThisStudentApplications(this);
 	}
 	
-	public List<Applications> getApplicationsFromThisStudent(){
+	public List<Application> getApplicationsFromThisStudent(){
 		return applicationsFromThisStudent;
 	}
 	
-	public void setApplicationsFromThisStudent(List<Applications> applicationsFromThisStudent) {
+	public void setApplicationsFromThisStudent(List<Application> applicationsFromThisStudent) {
 		this.applicationsFromThisStudent = applicationsFromThisStudent;
 	}
 	//
@@ -71,19 +71,19 @@ public class Student extends User{
 	//For notification OneToMany	
 	@OneToMany (mappedBy = "thisStudentNotifications")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Notifications> notificationsForStudent;
+	private List<Notification> notificationsForStudent;
 
-	public void notificationsForStudent(Notifications nots) {
+	public void notificationsForStudent(Notification nots) {
 		this.notificationsForStudent.add(nots);
 		if (nots.getThisStudentNotifications() != this)
 			nots.setThisStudentNotifications(this);
 	}
 
-	public List<Notifications> getNotificationsForStudent(){
+	public List<Notification> getNotificationsForStudent(){
 		return notificationsForStudent;
 	}
 	
-	public void setNotificationsForStudent(List<Notifications> notificationsForStudent) {
+	public void setNotificationsForStudent(List<Notification> notificationsForStudent) {
 		this.notificationsForStudent = notificationsForStudent;
 	}
 

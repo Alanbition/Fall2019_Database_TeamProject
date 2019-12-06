@@ -13,7 +13,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-public class Jobs {
+public class Job {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -26,19 +26,19 @@ public class Jobs {
 	//One To Many for Applications
 	@OneToMany (mappedBy = "thisJobApplications")
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Applications> applicationsForThisJob;
+	private List<Application> applicationsForThisJob;
 
-	public void applicationsForThisJob(Applications app) {
+	public void applicationsForThisJob(Application app) {
 		this.applicationsForThisJob.add(app);
 		if (app.getThisJobsApplications() != this)
 			app.setThisJobsApplications(this);
 	}
 
-	public List<Applications> getApplicationsForThisJob(){
+	public List<Application> getApplicationsForThisJob(){
 		return applicationsForThisJob;
 	}
 	
-	public void setApplicationsForThisJob(List<Applications> applicationsForThisJob) {
+	public void setApplicationsForThisJob(List<Application> applicationsForThisJob) {
 		this.applicationsForThisJob = applicationsForThisJob;
 	}
 	//
@@ -58,9 +58,9 @@ public class Jobs {
 	}
 	//
 
-	public Jobs() {}
+	public Job() {}
 
-	public Jobs(String title, String descripition, String location, String requirement, String company) {
+	public Job(String title, String descripition, String location, String requirement, String company) {
 		super();
 		this.title = title;
 		this.descripition = descripition;
