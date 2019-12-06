@@ -7,10 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 @Entity
 public class Resume {
-	@Column(name = "skill")
 	private String skill;
-	@Column(name = "GPA")
-	private String GPA;
 	@OneToMany(mappedBy="thisResumeEducationBackground", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<EducationBackground> resumeEducationBackgrounds;
@@ -105,9 +102,8 @@ public class Resume {
 	//Con
 	public Resume() {}
 	
-	public Resume(String skill, String GPA) {
+	public Resume(String skill) {
 		this.skill = skill;
-		this.GPA = GPA;
 	}
 
 	public String getSkill() {
@@ -116,14 +112,6 @@ public class Resume {
 
 	public void setSkill(String skill) {
 		this.skill = skill;
-	}
-
-	public String getGPA() {
-		return GPA;
-	}
-
-	public void setGPA(String GPA) {
-		this.GPA = GPA;
 	}
 
 

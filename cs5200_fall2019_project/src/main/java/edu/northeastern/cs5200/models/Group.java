@@ -1,5 +1,7 @@
 package edu.northeastern.cs5200.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +22,24 @@ public class Group {
 	
 	//TODO: uncomment when student are added
 	//TODO: add getters and setters for it
-	@ManyToMany
-	//private List<Student> students;
+	@ManyToMany(mappedBy = "enrolledGroups")
+	private List<Student> enrolledStudents;
+	public void enrolledStudents(Student student){
+		this.enrolledStudents.add(student);
+		if (student.getEnrolledGroups().contains(this)) {
+			student.getEnrolledGroups().add(this);
+		}
+	}
+
+	public List<Student> getEnrolledStudents(){
+		return enrolledStudents;
+	}
+	
+	public void setEnrolledStudents(List<Student> enrolledStudents) {
+		this.enrolledStudents = enrolledStudents;
+	}	
+
+
 	public String getName() {
 		return name;
 	}

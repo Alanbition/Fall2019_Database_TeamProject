@@ -16,6 +16,7 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Recruiter extends User{
 	private Boolean verified;
 	private String jobTitle;
+	private String company;
 	
 	public Recruiter() {}
 	
@@ -63,10 +64,11 @@ public class Recruiter extends User{
 	//
 
 	public Recruiter(String firstName, String lastName, String password, String email, Boolean verified,
-			String jobTitle) {
+			String jobTitle, String company) {
 		super(firstName, lastName, password, email);
 		this.verified = verified;
 		this.jobTitle = jobTitle;
+		this.company = company;
 	}
 
 	public Boolean getVerified() {
@@ -84,8 +86,14 @@ public class Recruiter extends User{
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
-
-
 	
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 
 }

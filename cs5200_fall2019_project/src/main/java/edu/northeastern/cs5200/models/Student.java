@@ -10,6 +10,26 @@ import javax.persistence.*;
 public class Student extends User{
 	private Boolean verified;
 
+	//Many to many for groups
+	@ManyToMany
+	@JoinTable(name = "StudentGroupEnrollment", joinColumns = @JoinColumn(name = "studentId", referencedColumnName="ID"), 
+		inverseJoinColumns = @JoinColumn(name = "groupId", referencedColumnName="ID"))
+	private List<Group> enrolledGroups;
+	public void enrolledGroups(Group group) {
+		this.enrolledGroups.add(group);
+		if (!group.getEnrolledStudents().contains(this)) {
+			group.getEnrolledStudents().add(this);
+		}
+	}
+	
+	public List<Group> getEnrolledGroups(){
+		return enrolledGroups;
+	}
+	
+	public void setEnrolledGroups(List<Group> enrolledGroups) {
+		this.enrolledGroups = enrolledGroups;
+	}	
+
 	//One To many for job interests
 	@OneToMany(mappedBy="thisStudentJobInterests", fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -87,8 +107,10 @@ public class Student extends User{
 		this.notificationsForStudent = notificationsForStudent;
 	}
 
+	//For prime Service OneToOne relationship
+	@OneToOne(mappedBy = "thisStudentPrimeService", cascade = CascadeType.ALL)
+	private Prime primeService;
 	//
-	
 	public Student() {
 		super();
 	}
@@ -104,6 +126,13 @@ public class Student extends User{
 	
 	public void setVerified(Boolean verified) {
 		this.verified = verified;
+	}
+	public Prime getPrimeService() {
+		return primeService;
+	}
+	
+	public void setPrimeService(Prime primeService) {
+		this.primeService = primeService;
 	}
 	
 }

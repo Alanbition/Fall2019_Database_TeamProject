@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,7 +21,8 @@ public class Prime {
 	private Boolean Autorenew;
 
 	@OneToOne
-	private Student student;
+	@MapsId
+	private Student thisStudentPrimeService;
 
 	@OneToMany(mappedBy = "prime")
 	private Group group;
@@ -55,12 +57,12 @@ public class Prime {
 		this.Autorenew = autorenew;
 	}
 
-	public Student getStudent() {
-		return student;
+	public Student getThisStudentPrimeService() {
+		return thisStudentPrimeService;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setThisStudentPrimeService(Student thisStudentPrimeService) {
+		this.thisStudentPrimeService = thisStudentPrimeService;
 	}
 
 	public Group getGroup() {
