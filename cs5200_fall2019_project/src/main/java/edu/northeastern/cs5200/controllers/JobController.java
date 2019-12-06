@@ -19,8 +19,8 @@ public class JobController {
 	JobRepository jobRepository;
 	  
 	@GetMapping("/select/all")
-	public List<Jobs> getAlljob (){
-		return jobRepository.findAll();
+	public List<Job> getAlljob (){
+		return (List<Job>) jobRepository.findAll();
 	}
 	
 }
