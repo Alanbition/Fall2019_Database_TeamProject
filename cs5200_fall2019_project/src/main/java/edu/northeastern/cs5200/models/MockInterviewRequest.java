@@ -12,18 +12,43 @@ public class MockInterviewRequest {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 
-	private int student_id;
-	
 	private String description;
 	
 	private boolean approved;
 	
-	@ManyToOne
+	@ManyToOne()
 	private Employee employee;
+
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+		if(!employee.getMockInterviewRequests().contains(this)) {
+			employee.getMockInterviewRequests().add(this);
+		}
+	}
 	
-	public MockInterviewRequest(int student_id, String description) {
-		this.student_id=student_id;
+	@ManyToOne()
+	private Prime prime;
+
+	public Prime getPrime() {
+		return prime;
+	}
+	public void setPrime(Prime prime) {
+		this.prime = prime;
+		if(!prime.getMockInterviewRequests().contains(this)) {
+			prime.getMockInterviewRequests().add(this);
+		}
+	}
+	
+	
+	public MockInterviewRequest() {
+	}
+	
+	public MockInterviewRequest(String description, boolean approved) {
 		this.description = description;
+		this.approved = approved;
 	}
 	
 	public int getId() {
@@ -32,13 +57,6 @@ public class MockInterviewRequest {
 
 	public void setId(int id) {
 	    this.id = id;
-	}
-	public int getStudent_id() {
-		return student_id;
-	}
-
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
 	}
 
 	public String getDescription() {
@@ -57,11 +75,5 @@ public class MockInterviewRequest {
 		this.approved = approved;
 	}
 	
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 }

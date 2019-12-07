@@ -33,15 +33,15 @@ public class Application {
 	//
 	//Many To One for Jobs
 	@ManyToOne
-	private Job thisJobsApplications;
+	private Job thisJobApplications;
 
-	public Job getThisJobsApplications() {
-		return thisJobsApplications;
+	public Job getThisJobApplications() {
+		return thisJobApplications;
 	}
-	public void setThisJobsApplications(Job thisJobsApplications) {
-		this.thisJobsApplications =  thisJobsApplications;
-		if (!thisJobsApplications.getApplicationsForThisJob().contains(this)) {
-			thisJobsApplications.getApplicationsForThisJob().add(this);
+	public void setThisJobApplications(Job thisJobApplications) {
+		this.thisJobApplications =  thisJobApplications;
+		if (!thisJobApplications.getApplicationsForThisJob().contains(this)) {
+			thisJobApplications.getApplicationsForThisJob().add(this);
 		}
 	}	
 	//

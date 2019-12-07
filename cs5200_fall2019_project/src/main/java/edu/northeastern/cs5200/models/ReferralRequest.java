@@ -11,8 +11,6 @@ public class ReferralRequest {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
-
-	private int student_id;
 	
 	private String description;
 	
@@ -20,11 +18,40 @@ public class ReferralRequest {
 	
 	@ManyToOne
 	private Employee employee;
-	
-	public ReferralRequest(int student_id, String description) {
-		this.student_id=student_id;
-		this.description = description;
+
+	public Employee getEmployee() {
+		return employee;
 	}
+	public Employee setEmployee(Employee employee) {
+		if(!employee.getReferralRequests().contains(this)) {
+			employee.getReferralRequests().add(this);
+		}
+		return employee;
+	}
+	
+	@ManyToOne
+	private Prime prime;
+
+	public Prime getPrime() {
+		return prime;
+	}
+	
+	public void setStudent(Prime prime) {
+		if(!prime.getReferralRequests().contains(this)) {
+			prime.getReferralRequests().add(this);
+		}
+	}
+
+	
+	public ReferralRequest() {
+	}
+	
+	public ReferralRequest(String description, boolean approved) {
+		this.description = description;
+		this.approved = approved;
+	}
+	
+
 	
 	public int getId() {
 		return id;
@@ -33,14 +60,7 @@ public class ReferralRequest {
 	public void setId(int id) {
 	    this.id = id;
 	}
-	public int getStudent_id() {
-		return student_id;
-	}
-
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
-	}
-
+	
 	public String getDescription() {
 		return description;
 	}
@@ -57,12 +77,5 @@ public class ReferralRequest {
 		this.approved = approved;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 }

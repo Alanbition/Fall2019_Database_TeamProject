@@ -25,13 +25,18 @@ public class Prime {
 	private Student thisStudentPrimeService;
 
 	@OneToMany(mappedBy = "prime")
-	private Group group;
-
-	@OneToMany(mappedBy = "prime")
 	private List<MockInterviewRequest> MockInterviewRequests;
 
 	@OneToMany(mappedBy = "prime")
 	private List<ReferralRequest> ReferralRequests;
+	
+	
+	public Prime() {}
+	
+	public Prime(Date Duedate, Boolean Autorenew) {
+		this.Duedate = Duedate;
+		this.Autorenew = Autorenew;
+	}
 
 	public int getId() {
 		return id;
@@ -63,14 +68,6 @@ public class Prime {
 
 	public void setThisStudentPrimeService(Student thisStudentPrimeService) {
 		this.thisStudentPrimeService = thisStudentPrimeService;
-	}
-
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
 	}
 
 	public List<MockInterviewRequest> getMockInterviewRequests() {
