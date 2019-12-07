@@ -1,5 +1,7 @@
 package edu.northeastern.cs5200.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.northeastern.cs5200.daos.EmployeeDao;
 import edu.northeastern.cs5200.models.Employee;
 import edu.northeastern.cs5200.models.Group;
+import edu.northeastern.cs5200.models.MockInterviewRequest;
 import edu.northeastern.cs5200.repositories.EmployeeRepository;
 
 @RestController
@@ -34,7 +37,17 @@ public class EmployeeController {
 		Iterable<Employee> employees = employeeDao.findAllEmployee();
 		return employees;
 	}
-	
+	@GetMapping("api/employee/{eid}/mockinterviewrequest")
+	public List<MockInterviewRequest> ViewMockInterviewRequests(@PathVariable("eid") int eid) {
+		Employee employee = employeeDao.findEmployeeById(eid);
+		List<MockInterviewRequest> requests = employeeDao.findAllInterviewRequest(employee);
+		return requests;
+	}
+	// TODO: 
+	@PutMapping("/api/employee/{eid}/mockinterviewrequest/{mid}")
+	public MockInterviewRequest ApproveMockInterviewRequests(@PathVariable("eid") int eid, @PathVariable("mid") int mid) {
+		return null;
+	}
 	@DeleteMapping("/api/employee/{eid}")
     public void deleteEmployee(@PathVariable("eid") int id) {
 		employeeDao.deleteEmployeeById(id);
@@ -50,7 +63,7 @@ public class EmployeeController {
     public Employee createUser(@RequestBody Employee employee) {
         return employeeDao.createEmployee(employee);
     }
-	//@PostMapping("register")
+
 	@GetMapping("/api/employee/login")
     public Employee loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
         return employeeDao.findEmployeeByCredentials(email, password);

@@ -58,6 +58,11 @@ public class EmployeeDao {
 	public void receivePayment() {
 		
 	}
+	public List<MockInterviewRequest> findAllInterviewRequest(Employee employee) {
+		List<MockInterviewRequest> interviewrequests = employee.getMockInterviewRequests();
+    	return interviewrequests;
+		
+	}
 	
 	public MockInterviewRequest sendInterviewRequest(MockInterviewRequest req, Employee employee) {
 		req.setEmployee(employee); 
@@ -96,6 +101,6 @@ public class EmployeeDao {
 	}
 	public Employee findEmployeeByCredentials(String email, String password) {
 		Employee e = employeeRepository.findEmployeeByCredentials(email, password);
-		return null;
+		return e;
 	}
 }
