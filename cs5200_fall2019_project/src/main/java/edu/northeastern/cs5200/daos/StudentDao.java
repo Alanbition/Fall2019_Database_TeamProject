@@ -53,7 +53,7 @@ public class StudentDao {
 		studentRepository.save(student);
 	}
 
-	public void quietGroupByStudent(Group group, Student student){
+	public void quitGroupByStudent(Group group, Student student){
 		student.removeEnrolledGroup(group);
 		studentRepository.save(student);
 		groupRepository.save(group);
@@ -164,6 +164,14 @@ public class StudentDao {
 //    	
 //
 //    }
+    public Student findStudentById(int sid) {
+		Student s = (Student) studentRepository.findById(sid).get();
+		return s;
+    }
+    public Student findGroupById(int gid) {
+		Student s = (Student) studentRepository.findById(gid).get();
+		return s;
+    }
 
 	public List<Student> findAllStudents(){
 		List<Student> students = (List<Student>) studentRepository.findAll();

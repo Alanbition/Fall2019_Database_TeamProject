@@ -2,41 +2,227 @@ package edu.northeastern.cs5200.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.northeastern.cs5200.daos.GeneralDao;
+import edu.northeastern.cs5200.daos.GroupDao;
+import edu.northeastern.cs5200.daos.StudentDao;
+import edu.northeastern.cs5200.models.Application;
+import edu.northeastern.cs5200.models.EducationBackground;
+import edu.northeastern.cs5200.models.Group;
+import edu.northeastern.cs5200.models.IndustrialExperience;
+import edu.northeastern.cs5200.models.Project;
+import edu.northeastern.cs5200.models.ResearchExperience;
+import edu.northeastern.cs5200.models.Resume;
+import edu.northeastern.cs5200.models.Student;
+import edu.northeastern.cs5200.repositories.ApplicationRepository;
+import edu.northeastern.cs5200.repositories.EducationBackgroundRepository;
+import edu.northeastern.cs5200.repositories.GroupRepository;
+import edu.northeastern.cs5200.repositories.IndustrialExperienceRepository;
+import edu.northeastern.cs5200.repositories.ProjectRepository;
+import edu.northeastern.cs5200.repositories.ResearchExperienceRepository;
+import edu.northeastern.cs5200.repositories.ResumeRepository;
+import edu.northeastern.cs5200.repositories.StudentRepository;
 
+	
 @RestController
 public class StudentController {
-	@RequestMapping("/api/hello/string")
-	public String sayHello() {
-		return "Hello Shijin Wang!";
-	}
-	@RequestMapping("/api/hello/object")
-	public HelloObject sayHelloObject() {
-		HelloObject obj = new HelloObject("Hello Shijin Wang!");
-		return obj;
-	}
 	@Autowired
-	HelloRepository helloRepository;
+	StudentDao studentDao;
+	@Autowired
+	GroupDao groupDao;
+	@Autowired
+	GeneralDao generalDao;
+	@Autowired
+	StudentRepository studentRepository;
+	@Autowired
+	GroupRepository groupRepository;
+	@Autowired
+	ApplicationRepository applicationRepository;
+	@Autowired
+	ResumeRepository resumeRepository;
+	@Autowired
+	ProjectRepository projectRepository;
+	@Autowired
+	IndustrialExperienceRepository industrialExperienceRepository;
+	@Autowired
+	ResearchExperienceRepository researchExperienceRepository;
+	@Autowired
+	EducationBackgroundRepository educationBackgroundRepository;
 	
-	@RequestMapping("/api/hello/insert")
-	public HelloObject insertHelloObject() {
-		HelloObject obj = new HelloObject("Hello Shijin Wang!");
-		helloRepository.save(obj);
-		return obj;
+
+
+	@GetMapping ("/api/student")
+	public Iterable <Student> findAllStudent (){
+		Iterable<Student> student = studentDao.findAllStudents();
+		return student;
 	}
-	@RequestMapping("/api/hello/insert/{msg}")
-	public HelloObject insertMessage(@PathVariable("msg") String message) {
-		HelloObject obj = new HelloObject(message);
-		helloRepository.save(obj);
-		return obj;
+
+	@DeleteMapping ("/api/student/{sid}")
+	public void deleteStudent(@PathVariable("sid") int id){
+		studentDao.deleteStudentById(id);
 	}
-	@RequestMapping("/api/hello/select/all")
-	public List<HelloObject> selectAllHelloObjects() {
-		List<HelloObject> hellos =
-			(List<HelloObject>)helloRepository.findAll();
-		return hellos;
+
+	@PostMapping ("api/student/{sid}/group/{gid}")
+	public Group enrollStudentToGruop(@PathVariable("sid") int sid, @PathVariable("gid") int gid){
+		Student student= studentRepository.findById(sid).get();
+		Group group = groupRepository.findById(gid).get();
+		return studentDao.enrollStudentToGroup(group, student);
+	} 
+	
+	@DeleteMapping ("api/student/{sid}/group/{gid}")
+	public void quitGroupByStudent (@PathVariable("sid") int sid, @PathVariable("gid") int gid ){
+		Student student= studentRepository.findById(sid).get();
+		Group group = groupRepository.findById(gid).get();
+		 studentDao.quitGroupByStudent(group, student);
+	}
+
+	@PostMapping ("api/student/{sid}/applicaition/{aid}")
+	public Student addApplicationToStudent(@PathVariable("sid") int sid, @PathVariable("aid") int aid){
+		Student student= studentRepository.findById(sid).get();
+		Application applicaition = applicationRepository.findById(aid).get();
+		return studentDao.addApplicationToStudent(applicaition, student);
+	}
+
+	@DeleteMapping("api/student/{sid}/applicaition/{aid}")
+	public void deleteApplicationFromStudent(@PathVariable("sid") int sid, @PathVariable("aid") int aid){
+		Student student= studentRepository.findById(sid).get();
+		Application applicaition = applicationRepository.findById(aid).get();
+		 studentDao.deleteApplicationFromStudent(applicaition, student);
 	}	
+
+	@PostMapping ("api/student/{sid}/resume/{rid}")
+	public Student addResumeToStudent(@PathVariable("sid") int sid, @PathVariable("rid") int rid){
+		Student student= studentRepository.findById(sid).get();
+		Resume resume = resumeRepository.findById(rid).get();
+		return studentDao.addResumeToStudent(resume, student);
+	}
+
+	@DeleteMapping ("api/student/{sid}/resume/{rid}")
+	public void deleteResumeFromStudent(@PathVariable("sid") int sid, @PathVariable("rid") int rid){
+		Student student= studentRepository.findById(sid).get();
+		Resume resume = resumeRepository.findById(rid).get();
+		 studentDao.deleteResumeFromStudent(resume, student);
+	}
+
+	@PostMapping ("api/project/{pid}/resume/{rid}")
+	public Resume addProjectToResume(@PathVariable("rid") int rid, @PathVariable("pid") int pid){
+		Resume resume =resumeRepository.findById(rid).get();
+		Project project = projectRepository.findById(pid).get();
+		return studentDao.addProjectToResume(resume, project);
+	}
+
+	@DeleteMapping ("api/project/{pid}/resume/{rid}")
+	public void deleteProjectFromResume(@PathVariable("rid") int rid, @PathVariable("pid") int pid){
+		Resume resume =resumeRepository.findById(rid).get();
+		Project project = projectRepository.findById(pid).get();
+		studentDao.deleteProjectFromResume(resume, project);
+	}
+
+	@PostMapping ("api/IndustrialExperience/{iid}/resume{rid}")
+	public Resume addIndustrialExperienceToResume(@PathVariable("rid") int rid,@PathVariable("iid") int iid){
+		Resume resume =resumeRepository.findById(rid).get();
+		IndustrialExperience industrialExperience = industrialExperienceRepository.findById(iid).get();
+		return studentDao.addIndustrialExperienceToResume(resume, industrialExperience);
+		
+}
+	@DeleteMapping ("api/IndustrialExperience/{iid}/resume{rid}")
+	public void deleteIndustrialExperienceFromResume(@PathVariable("rid") int rid,@PathVariable("iid") int iid){
+		Resume resume =resumeRepository.findById(rid).get();
+		IndustrialExperience industrialExperience = industrialExperienceRepository.findById(iid).get();
+		 studentDao.deleteIndustrialExperienceFromResume(resume, industrialExperience);
+		
+}
+
+	@PostMapping ("api/ResearchExperience/{reid}/resume{rid}")
+		public Resume addResearchExperienceToResume(@PathVariable("rid") int rid,@PathVariable("iid") int reid){
+		Resume resume =resumeRepository.findById(rid).get();
+		ResearchExperience researchExperience = researchExperienceRepository.findById(reid).get();
+		return studentDao.addResearchExperienceToResume(resume, researchExperience);
+		
+}
+	@DeleteMapping ("api/ResearchExperience/{reid}/resume{rid}")
+		public void deleteResearchExperienceFromResume(@PathVariable("rid") int rid,@PathVariable("iid") int reid){
+		Resume resume =resumeRepository.findById(rid).get();
+		ResearchExperience researchExperience = researchExperienceRepository.findById(reid).get();
+		 studentDao.deleteResearchExperienceFromResume(resume, researchExperience);
+		
+}
+	@PostMapping ("api/EducationBackground/{ebid}/resume{rid}")
+		public Resume addEducationBackgroundToResume(@PathVariable("rid") int rid,@PathVariable("ebid") int ebid){
+		Resume resume =resumeRepository.findById(rid).get();
+		EducationBackground educationBackground = educationBackgroundRepository.findById(ebid).get();
+		return studentDao.addEducationBackgroundToResume(resume, educationBackground);
+		
+}
+	@DeleteMapping ("api/EducationBackground/{ebid}/resume{rid}")
+		public Resume deleteEducationBackgroundToResume (@PathVariable("rid") int rid,@PathVariable("ebid") int ebid){
+		Resume resume =resumeRepository.findById(rid).get();
+		EducationBackground educationBackground = educationBackgroundRepository.findById(ebid).get();
+		return studentDao.addEducationBackgroundToResume(resume, educationBackground);
+		
+}
+
+
+	@GetMapping("api/student/{sid}")
+	public List<Student> students(@PathVariable("sid") int sid){
+		List<Student> students = studentDao.findAllStudents();
+		return students;
+	}
+
+	
+
+	
+
+	@GetMapping("api/student/{sid}")
+	public List<Group> findGroupsForStudent (@PathVariable("sid") int sid) {	
+		Student student = studentDao.findStudentById(sid);
+		List<Group> group = studentDao.findGroupsForStudent(student);
+		return group;
+	}
+	
+	@GetMapping("api/application/{aid}/student/{sid}")
+	public List<Application> findApplicationsForStudent(@PathVariable("aid") int aid, @PathVariable ("sid") int sid){
+		Student student = studentDao.findStudentById(sid);
+		List<Application> applications = studentDao.findApplicationsForStudent(student);
+		return applications;
+	}
+	
+	@GetMapping("api/resume/{rid}/student/{sid}")
+	public List<Resume> findResumesForStudent(@PathVariable("rid") int rid, @PathVariable ("sid") int sid){
+		Student student = studentDao.findStudentById(sid);
+		List<Resume> resumes = studentDao.findResumesForStudent(student);
+		return resumes;
+	}
+	@GetMapping("/api/employee/login")
+    public Student loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
+        return studentDao.findStudentByCredentials(email, password);
+    }
+	
+	
+	
+	
+	
+	
+		
+
+
+
+
+	
+
+
+	
+
+
+	
+
+	
+	
 }
