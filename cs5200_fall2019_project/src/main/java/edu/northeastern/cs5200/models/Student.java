@@ -9,16 +9,25 @@ import javax.persistence.*;
 @Entity
 public class Student extends User{
 	private Boolean verified;
+	private Boolean enablePrime;
 
 	//Many to many for groups
 	@ManyToMany
 	@JoinTable(name = "StudentGroupEnrollment", joinColumns = @JoinColumn(name = "studentId", referencedColumnName="ID"), 
 		inverseJoinColumns = @JoinColumn(name = "groupId", referencedColumnName="ID"))
 	private List<Group> enrolledGroups;
+
 	public void enrolledGroups(Group group) {
 		this.enrolledGroups.add(group);
 		if (!group.getEnrolledStudents().contains(this)) {
 			group.getEnrolledStudents().add(this);
+		}
+	}
+
+	public void removeEnrolledGroup(Group group) {
+		this.enrolledGroups.remove(group);
+		if (group.getEnrolledStudents().contains(this)) {
+			group.getEnrolledStudents().remove(this);
 		}
 	}
 	
@@ -31,7 +40,7 @@ public class Student extends User{
 	}	
 
 	//One To many for job interests
-	@OneToMany(mappedBy="thisStudentJobInterests", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisStudentJobInterests", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<JobInterest> jobsForThisStudent;
 	
@@ -50,7 +59,7 @@ public class Student extends User{
 	}
 
 	//One to many for resumes
-	@OneToMany(mappedBy="thisStudentResume", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisStudentResume", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Resume> resumesForThisStudent;	
 
@@ -60,6 +69,11 @@ public class Student extends User{
 			resume.setThisStudentResume(this);
 	}
 	
+	public void removeResumeFromThisStudent(Resume res) {
+		this.resumesForThisStudent.remove(res);
+		res.setThisStudentResume(null);
+	}
+
 	public List<Resume> getResumesForThisStudent(){
 		return resumesForThisStudent;
 	}
@@ -69,7 +83,7 @@ public class Student extends User{
 	}
 
 	//One to Many for applications
-	@OneToMany(mappedBy="thisStudentApplications", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisStudentApplications", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Application> applicationsFromThisStudent;		
 	
@@ -79,6 +93,11 @@ public class Student extends User{
 			app.setThisStudentApplications(this);
 	}
 	
+	public void removeApplicationsFromThisStudent(Application app) {
+		this.applicationsFromThisStudent.remove(app);
+		app.setThisStudentApplications(null);
+	}
+
 	public List<Application> getApplicationsFromThisStudent(){
 		return applicationsFromThisStudent;
 	}
@@ -115,9 +134,10 @@ public class Student extends User{
 		super();
 	}
 	
-	public Student(String firstName, String lastName, String password, String email, Boolean verified) {
+	public Student(String firstName, String lastName, String password, String email, Boolean verified, Boolean enablePrime) {
 		super(firstName, lastName, password, email);
 		this.verified = verified;
+		this.enablePrime = enablePrime;
 	}
 	
 	public Boolean getVerified() {
@@ -127,6 +147,7 @@ public class Student extends User{
 	public void setVerified(Boolean verified) {
 		this.verified = verified;
 	}
+
 	public Prime getPrimeService() {
 		return primeService;
 	}
@@ -135,4 +156,12 @@ public class Student extends User{
 		this.primeService = primeService;
 	}
 	
+	public Boolean getEnablePrime() {
+		return enablePrime;
+	}
+	
+	public void setEnablePrime(Boolean enablePrime) {
+		this.enablePrime = enablePrime;
+	}
+
 }

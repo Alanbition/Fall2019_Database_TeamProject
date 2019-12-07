@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Resume {
 	private String skill;
-	@OneToMany(mappedBy="thisResumeEducationBackground", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisResumeEducationBackground", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<EducationBackground> resumeEducationBackgrounds;
 	//For Education_Backgroud
@@ -16,6 +16,11 @@ public class Resume {
 		this.resumeEducationBackgrounds.add(eb);
 		if (eb.getThisResumeEducationBackground() != this)
 			eb.setThisResumeEducationBackground(this);
+	}
+
+	public void removeEducationBackgroundFromResume(EducationBackground eb) {
+		this.resumeEducationBackgrounds.remove(eb);
+		eb.setThisResumeEducationBackground(null);
 	}
 	
 	public List<EducationBackground> getResumeEducationBackgrounds(){
@@ -27,13 +32,18 @@ public class Resume {
 	}
 	//
 	//For Project
-	@OneToMany(mappedBy="thisResumeProject", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisResumeProject", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Project> resumeProject;	
 	public void resumeProject(Project pj) {
 		this.resumeProject.add(pj);
 		if (pj.getThisResumeProject() != this)
 			pj.setThisResumeProject(this);
+	}
+
+	public void removeProjectFromResume(Project pj) {
+		this.resumeProject.remove(pj);
+		pj.setThisResumeProject(null);
 	}
 	
 	public List<Project> getResumeProject(){
@@ -47,7 +57,7 @@ public class Resume {
 
 	//For Industrial Experience
 
-	@OneToMany(mappedBy="thisResumeIndustrialExperience", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisResumeIndustrialExperience", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<IndustrialExperience> resumeIndustrialExperiences;
 
@@ -55,6 +65,11 @@ public class Resume {
 		this.resumeIndustrialExperiences.add(ie);
 		if (ie.getThisResumeIndustrialExperience() != this)
 			ie.setThisResumeIndustrialExperience(this);
+	}
+
+	public void removeIndustrialExperienceFromResume(IndustrialExperience ie) {
+		this.resumeIndustrialExperiences.remove(ie);
+		ie.setThisResumeIndustrialExperience(this);
 	}
 	
 	public List<IndustrialExperience> getResumeIndustrialExperiences(){
@@ -67,7 +82,7 @@ public class Resume {
 
 	//For Research Experience
 
-	@OneToMany(mappedBy="thisResumeResearchExperience", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="thisResumeResearchExperience", orphanRemoval = true, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<ResearchExperience> resumeResearchExperiences;	
 	
@@ -77,6 +92,11 @@ public class Resume {
 			re.setThisResumeResearchExperience(this);
 	}
 	
+	public void removeResearchExperienceFromResume(ResearchExperience re) {
+		this.resumeResearchExperiences.remove(re);
+		re.setThisResumeResearchExperience(null);
+	}
+
 	public List<ResearchExperience> getResumeResearchExperiences(){
 		return resumeResearchExperiences;
 	}

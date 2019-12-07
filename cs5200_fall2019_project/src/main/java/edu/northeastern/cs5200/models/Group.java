@@ -24,10 +24,18 @@ public class Group {
 	//TODO: add getters and setters for it
 	@ManyToMany(mappedBy = "enrolledGroups")
 	private List<Student> enrolledStudents;
+
 	public void enrolledStudents(Student student){
 		this.enrolledStudents.add(student);
-		if (student.getEnrolledGroups().contains(this)) {
+		if (!student.getEnrolledGroups().contains(this)) {
 			student.getEnrolledGroups().add(this);
+		}
+	}
+
+	public void removeEnrolledStudent(Student student){
+		this.enrolledStudents.remove(student);
+		if (student.getEnrolledGroups().contains(this)) {
+			student.getEnrolledGroups().remove(this);
 		}
 	}
 

@@ -29,16 +29,16 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getfirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
-	public void setfirstName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 	public String getLastName() {
 		return lastName;
 	}
-	public void setLast_name(String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 	public String getPassword() {

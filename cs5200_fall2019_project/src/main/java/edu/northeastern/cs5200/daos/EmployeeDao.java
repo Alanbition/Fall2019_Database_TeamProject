@@ -31,6 +31,7 @@ public class EmployeeDao {
 	public Employee createEmployee(Employee employee) {
 		return employeeRepository.save(employee);
 	}
+	
 	public Iterable<Employee> findAllEmployee() {
 		return employeeRepository.findAll();
 	}

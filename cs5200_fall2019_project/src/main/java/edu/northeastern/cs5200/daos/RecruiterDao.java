@@ -20,6 +20,7 @@ public class RecruiterDao {
 	public void deleteRecruiter(){
 		recruiterRepository.deleteAll();
 	}
+
 	public Recruiter createRecruiter(Recruiter recruiter){
 		return recruiterRepository.save(recruiter);
 	}
@@ -30,4 +31,3 @@ public class RecruiterDao {
     	return recruiterRepository.save(recruiter);
     }
 }
-
