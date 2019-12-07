@@ -29,8 +29,8 @@ public class RecruiterDao {
 	public Recruiter updateRecruiter(int id, Recruiter recruiter) {
 		Recruiter r = recruiterRepository.findById(id).get();
         r.setEmail(recruiter.getEmail());
-        r.setfirstName(recruiter.getfirstName());
-        r.setLast_name(recruiter.getLastName());
+        r.setFirstName(recruiter.getFirstName());
+        r.setLastName(recruiter.getLastName());
         r.setPassword(recruiter.getPassword());
         recruiterRepository.save(r);
         return r;

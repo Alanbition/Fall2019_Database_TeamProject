@@ -39,8 +39,8 @@ public class EmployeeDao {
 	public Employee updateEmployee(int id, Employee employee) {
 		Employee e = employeeRepository.findEmployeeById(id);
         e.setEmail(employee.getEmail());
-        e.setfirstName(employee.getfirstName());
-        e.setLast_name(employee.getLastName());
+        e.setFirstName(employee.getFirstName());
+        e.setLastName(employee.getLastName());
         e.setPassword(employee.getPassword());
         employeeRepository.save(e);
         return e;
