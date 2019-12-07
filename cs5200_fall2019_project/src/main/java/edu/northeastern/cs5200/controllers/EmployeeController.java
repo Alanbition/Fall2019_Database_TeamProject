@@ -14,15 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.northeastern.cs5200.daos.EmployeeDao;
+import edu.northeastern.cs5200.daos.GeneralDao;
 import edu.northeastern.cs5200.models.Employee;
 import edu.northeastern.cs5200.models.Group;
 import edu.northeastern.cs5200.models.MockInterviewRequest;
+import edu.northeastern.cs5200.models.ReferralRequest;
 import edu.northeastern.cs5200.repositories.EmployeeRepository;
 
 @RestController
 public class EmployeeController {
 	@Autowired
 	EmployeeDao employeeDao;
+	GeneralDao generalDao;
 	//EmployeeRepository emloyeeRepository;
 	
 	@GetMapping("api/employee/{eid}")
@@ -43,11 +46,37 @@ public class EmployeeController {
 		List<MockInterviewRequest> requests = employeeDao.findAllInterviewRequest(employee);
 		return requests;
 	}
-	// TODO: 
+
+	// may cause problem or be redundant to have two functions instead of updateMockInterviewrequest
+	
 	@PutMapping("/api/employee/{eid}/mockinterviewrequest/{mid}")
 	public MockInterviewRequest ApproveMockInterviewRequests(@PathVariable("eid") int eid, @PathVariable("mid") int mid) {
-		return null;
+		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
+		return employeeDao.reviewInterview(req, true);
 	}
+	@PutMapping("/api/employee/{eid}/mockinterviewrequest/{mid}")
+	public MockInterviewRequest RejectMockInterviewRequests(@PathVariable("eid") int eid, @PathVariable("mid") int mid) {
+		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
+		return employeeDao.reviewInterview(req, false);
+	}
+	@GetMapping("api/employee/{eid}/referral")
+	public List<ReferralRequest> ViewReferralRequests(@PathVariable("eid") int eid) {
+		Employee employee = employeeDao.findEmployeeById(eid);
+		List<ReferralRequest> requests = employeeDao.findAllReferralRequest(employee);
+		return requests;
+	}
+
+	@PutMapping("/api/employee/{eid}/referral/{rid}")
+	public ReferralRequest ApproveReferralRequests(@PathVariable("eid") int eid, @PathVariable("rid") int rid) {
+		ReferralRequest req = generalDao.findReferralRequestById(mid);
+		return employeeDao.reviewReferral(req, true);
+	}
+	@PutMapping("/api/employee/{eid}/referral/{rid}")
+	public ReferralRequest RejectReferralRequests(@PathVariable("eid") int eid, @PathVariable("rid") int rid) {
+		ReferralRequest req = generalDao.findReferralRequestById(rid);
+		return employeeDao.reviewReferral(req, false);
+	}
+	
 	@DeleteMapping("/api/employee/{eid}")
     public void deleteEmployee(@PathVariable("eid") int id) {
 		employeeDao.deleteEmployeeById(id);

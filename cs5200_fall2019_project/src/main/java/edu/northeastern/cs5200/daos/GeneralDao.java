@@ -148,6 +148,10 @@ public class GeneralDao {
 	public MockInterviewRequest findMockInterviewRequestById(int id) {
 		return mockInterviewRequestRepository.findById(id).get();
 	}
+	public ReferralRequest findReferralRequestById(int id) {
+		return referralRequestRepository.findById(id).get();
+	}
+
 	public ReferralRequest createReferralRequest(ReferralRequest referralRequest) {
 		return referralRequestRepository.save(referralRequest);
 		
