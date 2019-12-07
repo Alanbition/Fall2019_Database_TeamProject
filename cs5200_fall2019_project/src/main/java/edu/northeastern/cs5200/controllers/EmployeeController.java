@@ -54,11 +54,11 @@ public class EmployeeController {
 		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
 		return employeeDao.reviewInterview(req, true);
 	}
-	@PutMapping("/api/employee/{eid}/mockinterviewrequest/{mid}")
-	public MockInterviewRequest RejectMockInterviewRequests(@PathVariable("eid") int eid, @PathVariable("mid") int mid) {
-		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
-		return employeeDao.reviewInterview(req, false);
-	}
+//	@PutMapping("/api/employee/{eid}/mockinterviewrequest/{mid}")
+//	public MockInterviewRequest RejectMockInterviewRequests(@PathVariable("eid") int eid, @PathVariable("mid") int mid) {
+//		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
+//		return employeeDao.reviewInterview(req, false);
+//	}
 	@GetMapping("api/employee/{eid}/referral")
 	public List<ReferralRequest> ViewReferralRequests(@PathVariable("eid") int eid) {
 		Employee employee = employeeDao.findEmployeeById(eid);
@@ -71,11 +71,11 @@ public class EmployeeController {
 		ReferralRequest req = generalDao.findReferralRequestById(eid);
 		return employeeDao.reviewReferral(req, true);
 	}
-	@PutMapping("/api/employee/{eid}/referral/{rid}")
-	public ReferralRequest RejectReferralRequests(@PathVariable("eid") int eid, @PathVariable("rid") int rid) {
-		ReferralRequest req = generalDao.findReferralRequestById(rid);
-		return employeeDao.reviewReferral(req, false);
-	}
+//	@PutMapping("/api/employee/{eid}/referral/{rid}")
+//	public ReferralRequest RejectReferralRequests(@PathVariable("eid") int eid, @PathVariable("rid") int rid) {
+//		ReferralRequest req = generalDao.findReferralRequestById(rid);
+//		return employeeDao.reviewReferral(req, false);
+//	}
 	
 	@DeleteMapping("/api/employee/{eid}")
     public void deleteEmployee(@PathVariable("eid") int id) {

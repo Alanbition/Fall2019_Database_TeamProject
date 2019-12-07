@@ -41,7 +41,12 @@ public class RecruiterDao {
     	jobRepository.save(job);
     	return recruiterRepository.save(recruiter);
     }
-
+    
+    public Recruiter removeJobfromRecruiter(Job job, Recruiter recruiter){
+    	recruiter.removeJob(job);
+    	jobRepository.delete(job);;
+    	return recruiterRepository.save(recruiter);
+    }
     
     
     

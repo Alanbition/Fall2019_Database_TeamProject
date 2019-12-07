@@ -33,6 +33,7 @@ import edu.northeastern.cs5200.repositories.StudentRepository;
 	
 @RestController
 public class StudentController {
+
 	@Autowired
 	StudentDao studentDao;
 	@Autowired
@@ -206,23 +207,5 @@ public class StudentController {
     }
 	
 	
-	
-	
-	
-	
-		
 
-
-
-
-	
-
-
-	
-
-
-	
-
-	
-	
 }

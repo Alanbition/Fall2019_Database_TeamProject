@@ -1,14 +1,21 @@
 package edu.northeastern.cs5200.models;
 
 import java.util.List;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 @Entity
 public class Resume {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String skill;
 	@OneToMany(mappedBy="thisResumeEducationBackground", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<EducationBackground> resumeEducationBackgrounds;
 	//For Education_Backgroud
@@ -33,6 +40,7 @@ public class Resume {
 	//
 	//For Project
 	@OneToMany(mappedBy="thisResumeProject", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Project> resumeProject;	
 	public void resumeProject(Project pj) {
@@ -58,6 +66,7 @@ public class Resume {
 	//For Industrial Experience
 
 	@OneToMany(mappedBy="thisResumeIndustrialExperience", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<IndustrialExperience> resumeIndustrialExperiences;
 
@@ -83,6 +92,7 @@ public class Resume {
 	//For Research Experience
 
 	@OneToMany(mappedBy="thisResumeResearchExperience", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<ResearchExperience> resumeResearchExperiences;	
 	
@@ -125,7 +135,13 @@ public class Resume {
 	public Resume(String skill) {
 		this.skill = skill;
 	}
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+	    this.id = id;
+	}
 	public String getSkill() {
 		return skill;
 	}

@@ -54,7 +54,9 @@ public class Employee extends User{
 
 	//
 
-	public Employee() {}
+	public Employee() {
+		super();
+	}
 	
 
 	public Employee(String firstName, String lastName, String password, String email, String bankAccount, Boolean verified,

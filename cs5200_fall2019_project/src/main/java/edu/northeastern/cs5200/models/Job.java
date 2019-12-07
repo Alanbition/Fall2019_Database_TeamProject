@@ -30,8 +30,8 @@ public class Job {
 
 	public void applicationsForThisJob(Application app) {
 		this.applicationsForThisJob.add(app);
-		if (app.getThisJobsApplications() != this)
-			app.setThisJobsApplications(this);
+		if (app.getThisJobApplications() != this)
+			app.setThisJobApplications(this);
 	}
 
 	public List<Application> getApplicationsForThisJob(){
