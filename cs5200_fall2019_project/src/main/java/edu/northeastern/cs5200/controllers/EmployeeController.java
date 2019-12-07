@@ -68,7 +68,7 @@ public class EmployeeController {
 
 	@PutMapping("/api/employee/{eid}/referral/{rid}")
 	public ReferralRequest ApproveReferralRequests(@PathVariable("eid") int eid, @PathVariable("rid") int rid) {
-		ReferralRequest req = generalDao.findReferralRequestById(mid);
+		ReferralRequest req = generalDao.findReferralRequestById(eid);
 		return employeeDao.reviewReferral(req, true);
 	}
 	@PutMapping("/api/employee/{eid}/referral/{rid}")
@@ -93,6 +93,7 @@ public class EmployeeController {
         return employeeDao.createEmployee(employee);
     }
 
+	//TODO: notification and login-register
 	@GetMapping("/api/employee/login")
     public Employee loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
         return employeeDao.findEmployeeByCredentials(email, password);
