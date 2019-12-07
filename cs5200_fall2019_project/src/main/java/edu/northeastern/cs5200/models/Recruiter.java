@@ -31,6 +31,11 @@ public class Recruiter extends User{
 		if (job.getThisRecruiterJobs() != this)
 			job.setThisRecruiterJobs(this);
 	}
+	public void removeJob(Job job) {
+		this.jobsCreatedByRecruiter.remove(job);
+		job.setThisRecruiterJobs(null);
+	}
+	
 
 	public List<Job> getJobsCreatedByRecruiter(){
 		return jobsCreatedByRecruiter;
