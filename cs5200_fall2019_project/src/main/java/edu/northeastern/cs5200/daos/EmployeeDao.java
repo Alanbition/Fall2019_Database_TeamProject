@@ -59,6 +59,16 @@ public class EmployeeDao {
 	public void receivePayment() {
 		
 	}
+	public List<MockInterviewRequest> findAllInterviewRequest(Employee employee) {
+		List<MockInterviewRequest> interviewrequests = employee.getMockInterviewRequests();
+    	return interviewrequests;
+		
+	}
+	public List<ReferralRequest> findAllReferralRequest(Employee employee) {
+		List<ReferralRequest> referralRequests = employee.getReferralRequests();
+    	return referralRequests;
+		
+	}
 	
 	public MockInterviewRequest sendInterviewRequest(MockInterviewRequest req, Employee employee) {
 		req.setEmployee(employee); 
@@ -71,8 +81,8 @@ public class EmployeeDao {
     	return req;
 		
 	}
-	public MockInterviewRequest approveInterview(MockInterviewRequest req) {
-		req.setApproved(true); 
+	public MockInterviewRequest reviewInterview(MockInterviewRequest req, Boolean approve) {
+		req.setApproved(approve); 
 		interviewRepository.save(req);
 		return req;
 		
@@ -89,14 +99,14 @@ public class EmployeeDao {
     	return req;
 		
 	}
-	public ReferralRequest approveReferral(ReferralRequest req) {
-		req.setApproved(true); 
+	public ReferralRequest reviewReferral(ReferralRequest req, Boolean approve) {
+		req.setApproved(approve); 
 		referralRepository.save(req);
 		return req;
 		
 	}
 	public Employee findEmployeeByCredentials(String email, String password) {
 		Employee e = employeeRepository.findEmployeeByCredentials(email, password);
-		return null;
+		return e;
 	}
 }

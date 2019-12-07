@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import edu.northeastern.cs5200.models.Employee;
 import edu.northeastern.cs5200.models.Job;
 import edu.northeastern.cs5200.models.Recruiter;
 import edu.northeastern.cs5200.repositories.JobRepository;
@@ -25,9 +26,25 @@ public class RecruiterDao {
 		return recruiterRepository.save(recruiter);
 	}
 
+	public Recruiter updateRecruiter(int id, Recruiter recruiter) {
+		Recruiter r = recruiterRepository.findById(id).get();
+        r.setEmail(recruiter.getEmail());
+        r.setfirstName(recruiter.getfirstName());
+        r.setLast_name(recruiter.getLastName());
+        r.setPassword(recruiter.getPassword());
+        recruiterRepository.save(r);
+        return r;
+	}
+	
     public Recruiter addJobToRecruiter(Job job, Recruiter recruiter){
     	recruiter.jobsCreatedByRecruiter(job);
     	jobRepository.save(job);
     	return recruiterRepository.save(recruiter);
     }
+
+    
+    
+    
+   
 }
+
