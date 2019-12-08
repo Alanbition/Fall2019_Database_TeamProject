@@ -112,28 +112,28 @@ public class StudentController {
 		 studentDao.deleteResumeFromStudent(resume, student);
 	}
 
-	@PostMapping ("api/project/{pid}/resume/{rid}")
+	@PostMapping ("api/resume/{rid}/project/{pid}")
 	public Resume addProjectToResume(@PathVariable("rid") int rid, @PathVariable("pid") int pid){
 		Resume resume =resumeRepository.findById(rid).get();
 		Project project = projectRepository.findById(pid).get();
 		return studentDao.addProjectToResume(resume, project);
 	}
 
-	@DeleteMapping ("api/project/{pid}/resume/{rid}")
+	@DeleteMapping ("api/resume/{rid}/project/{pid}")
 	public void deleteProjectFromResume(@PathVariable("rid") int rid, @PathVariable("pid") int pid){
 		Resume resume =resumeRepository.findById(rid).get();
 		Project project = projectRepository.findById(pid).get();
 		studentDao.deleteProjectFromResume(resume, project);
 	}
 
-	@PostMapping ("api/IndustrialExperience/{iid}/resume{rid}")
+	@PostMapping ("api/resume{rid}/IndustrialExperience/{iid}")
 	public Resume addIndustrialExperienceToResume(@PathVariable("rid") int rid,@PathVariable("iid") int iid){
 		Resume resume =resumeRepository.findById(rid).get();
 		IndustrialExperience industrialExperience = industrialExperienceRepository.findById(iid).get();
 		return studentDao.addIndustrialExperienceToResume(resume, industrialExperience);
 		
 }
-	@DeleteMapping ("api/IndustrialExperience/{iid}/resume{rid}")
+	@DeleteMapping ("api/resume{rid}/IndustrialExperience/{iid}")
 	public void deleteIndustrialExperienceFromResume(@PathVariable("rid") int rid,@PathVariable("iid") int iid){
 		Resume resume =resumeRepository.findById(rid).get();
 		IndustrialExperience industrialExperience = industrialExperienceRepository.findById(iid).get();
@@ -141,28 +141,28 @@ public class StudentController {
 		
 }
 
-	@PostMapping ("api/ResearchExperience/{reid}/resume{rid}")
+	@PostMapping ("api/resume{rid}/ResearchExperience/{reid}")
 		public Resume addResearchExperienceToResume(@PathVariable("rid") int rid,@PathVariable("iid") int reid){
 		Resume resume =resumeRepository.findById(rid).get();
 		ResearchExperience researchExperience = researchExperienceRepository.findById(reid).get();
 		return studentDao.addResearchExperienceToResume(resume, researchExperience);
 		
 }
-	@DeleteMapping ("api/ResearchExperience/{reid}/resume{rid}")
+	@DeleteMapping ("api/resume{rid}/ResearchExperience/{reid}")
 		public void deleteResearchExperienceFromResume(@PathVariable("rid") int rid,@PathVariable("iid") int reid){
 		Resume resume =resumeRepository.findById(rid).get();
 		ResearchExperience researchExperience = researchExperienceRepository.findById(reid).get();
 		 studentDao.deleteResearchExperienceFromResume(resume, researchExperience);
 		
 }
-	@PostMapping ("api/EducationBackground/{ebid}/resume{rid}")
+	@PostMapping ("api/resume{rid}/EducationBackground/{ebid}")
 		public Resume addEducationBackgroundToResume(@PathVariable("rid") int rid,@PathVariable("ebid") int ebid){
 		Resume resume =resumeRepository.findById(rid).get();
 		EducationBackground educationBackground = educationBackgroundRepository.findById(ebid).get();
 		return studentDao.addEducationBackgroundToResume(resume, educationBackground);
 		
 }
-	@DeleteMapping ("api/EducationBackground/{ebid}/resume{rid}")
+	@DeleteMapping ("api/resume{rid}/EducationBackground/{ebid}")
 		public Resume deleteEducationBackgroundToResume (@PathVariable("rid") int rid,@PathVariable("ebid") int ebid){
 		Resume resume =resumeRepository.findById(rid).get();
 		EducationBackground educationBackground = educationBackgroundRepository.findById(ebid).get();
@@ -181,22 +181,22 @@ public class StudentController {
 
 	
 
-	@GetMapping("api/student/{sid}")
+	@GetMapping("api/student/{sid}/group")
 	public List<Group> findGroupsForStudent (@PathVariable("sid") int sid) {	
 		Student student = studentDao.findStudentById(sid);
 		List<Group> group = studentDao.findGroupsForStudent(student);
 		return group;
 	}
 	
-	@GetMapping("api/application/{aid}/student/{sid}")
+	@GetMapping("api/student/{sid}/application/{aid}")
 	public List<Application> findApplicationsForStudent(@PathVariable("aid") int aid, @PathVariable ("sid") int sid){
 		Student student = studentDao.findStudentById(sid);
 		List<Application> applications = studentDao.findApplicationsForStudent(student);
 		return applications;
 	}
 	
-	@GetMapping("api/resume/{rid}/student/{sid}")
-	public List<Resume> findResumesForStudent(@PathVariable("rid") int rid, @PathVariable ("sid") int sid){
+	@GetMapping("api/student/{sid}/resume")
+	public List<Resume> findResumesForStudent(@PathVariable ("sid") int sid){
 		Student student = studentDao.findStudentById(sid);
 		List<Resume> resumes = studentDao.findResumesForStudent(student);
 		return resumes;
