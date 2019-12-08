@@ -1,6 +1,8 @@
 package edu.northeastern.cs5200.models;
 
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -55,4 +57,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }
