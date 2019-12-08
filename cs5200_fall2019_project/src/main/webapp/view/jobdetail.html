@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Job detail</title>
+</head>
+<body>
+<h2>job detail</h2>
+<div id="description"></div>
+<script type="text/javascript">
+var url = document.location.href,
+params = url.split('?')[1].substring(7)
+/* for (var i = 0, l = params.length; i < l; i++) {
+ tmp = params[i].split('=');
+ data[tmp[0]] = tmp[1];
+} */
+var description= params
+console.log(description)
+
+const container =document.getElementById('description')
+/* const p = document.createElement('p')
+p.textContent = description */
+container.innerHTML = description;/* 
+var htmlObject = container.firstChild;
+container.appendChild(htmlObject) */
+</script>
+</body>
+</html>

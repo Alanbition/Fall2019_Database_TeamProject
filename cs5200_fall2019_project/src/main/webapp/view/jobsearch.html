@@ -28,11 +28,10 @@
     
     var searchTerm = document.getElementById('search');
     var input = '';
-    searchTerm.addEventListener('change', function(e) {
 
-    	
-    	const app = document.getElementById('job')
-        const container = document.createElement('div')
+	const app = document.getElementById('job')
+    const container = document.createElement('div')
+    searchTerm.addEventListener('change', function(e) {
     	app.appendChild(container)
     	while (container.firstChild) {
     		container.removeChild(container.firstChild);
@@ -57,17 +56,22 @@
         		  job = data[keys[i]]
         	      const card = document.createElement('div')
         	      card.setAttribute('class', 'card')
-        	
-        	      const h1 = document.createElement('h1')
-        	      h1.textContent = job.title
+        
+        	      const detail_link = document.createElement('a')
+        	      var text = document.createTextNode(job.title)
+        	      var detail = job.description
+        	      /* detail_link.setAttribute('href', "jobdetail.html?detail="+detail); */
+        	      detail_link.setAttribute('href', job.url); 
+        	      detail_link.appendChild(text);
+        	      /* detail_link.textContent = job.title */
         	
         	      const p = document.createElement('p')
         	      job.description = job.description.substring(0, 300)
         	      p.textContent = `${job.description}...`
         	
         	      container.appendChild(card)
-        	      card.appendChild(h1)
-        	      //card.appendChild(p)
+        	      card.appendChild(detail_link)
+        	      /* card.appendChild(p) */
             }
           } else {
             const errorMessage = document.createElement('marquee')
