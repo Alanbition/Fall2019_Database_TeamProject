@@ -3,10 +3,13 @@ package edu.northeastern.cs5200.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,9 +22,8 @@ public class Employee extends User{
 	private String jobTitle;
 	private Boolean verified;
 	private Integer activePoint;
-	
-	@OneToOne(mappedBy = "employee")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+
+	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY, optional = false)
 	private Group group;
 
 	@OneToMany(mappedBy = "employee")

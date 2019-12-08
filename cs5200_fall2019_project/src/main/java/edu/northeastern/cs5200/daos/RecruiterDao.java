@@ -25,6 +25,10 @@ public class RecruiterDao {
 	public Recruiter createRecruiter(Recruiter recruiter){
 		return recruiterRepository.save(recruiter);
 	}
+	
+	public Iterable<Recruiter> findAllRecruiter() {
+		return recruiterRepository.findAll();
+	}
 
 	public Recruiter updateRecruiter(int id, Recruiter recruiter) {
 		Recruiter r = recruiterRepository.findById(id).get();

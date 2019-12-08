@@ -28,19 +28,19 @@ public class EmployeeController {
 	GeneralDao generalDao;
 	//EmployeeRepository emloyeeRepository;
 	
-	@GetMapping("api/employee/{eid}")
+	@GetMapping("/api/employee/{eid}")
 	public Group findEmployeeManagedGroup(@PathVariable("eid") int eid) {
 		Employee employee = employeeDao.findEmployeeById(eid);
 		Group group = employeeDao.getEmployeeManagedGroup(employee);
 		return group;
 	}
 	
-	@GetMapping("api/employee")
+	@GetMapping("/api/employee")
 	public Iterable<Employee> findAllEmployee() {
 		Iterable<Employee> employees = employeeDao.findAllEmployee();
 		return employees;
 	}
-	@GetMapping("api/employee/{eid}/mockinterviewrequest")
+	@GetMapping("/api/employee/{eid}/mockinterviewrequest")
 	public List<MockInterviewRequest> ViewMockInterviewRequests(@PathVariable("eid") int eid) {
 		Employee employee = employeeDao.findEmployeeById(eid);
 		List<MockInterviewRequest> requests = employeeDao.findAllInterviewRequest(employee);
@@ -59,7 +59,7 @@ public class EmployeeController {
 //		MockInterviewRequest req = generalDao.findMockInterviewRequestById(mid);
 //		return employeeDao.reviewInterview(req, false);
 //	}
-	@GetMapping("api/employee/{eid}/referral")
+	@GetMapping("/api/employee/{eid}/referral")
 	public List<ReferralRequest> ViewReferralRequests(@PathVariable("eid") int eid) {
 		Employee employee = employeeDao.findEmployeeById(eid);
 		List<ReferralRequest> requests = employeeDao.findAllReferralRequest(employee);
@@ -89,13 +89,10 @@ public class EmployeeController {
     }
 	
 	@PostMapping("/api/employee")
-    public Employee createUser(@RequestBody Employee employee) {
+    public Employee createEmployee(@RequestBody Employee employee) {
         return employeeDao.createEmployee(employee);
     }
 
 	//TODO: notification and login-register
-	@GetMapping("/api/employee/login")
-    public Employee loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
-        return employeeDao.findEmployeeByCredentials(email, password);
-    }
+	
 }

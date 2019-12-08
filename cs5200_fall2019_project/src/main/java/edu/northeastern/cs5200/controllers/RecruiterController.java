@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.northeastern.cs5200.daos.RecruiterDao;
 import edu.northeastern.cs5200.models.Application;
+import edu.northeastern.cs5200.models.Employee;
 import edu.northeastern.cs5200.models.Job;
 import edu.northeastern.cs5200.models.JobInterest;
 import edu.northeastern.cs5200.models.Recruiter;
@@ -30,9 +31,9 @@ public class RecruiterController {
 	JobRepository jobrepository;
 	JobInterestRepository jobInterestrepository;
 	
-	@GetMapping("api/recruiter")
+	@GetMapping("/api/recruiter")
 	public Iterable<Recruiter> findAllRecruiter() {
-		Iterable<Recruiter> recruiters = recruiterRepository.findAll();
+		Iterable<Recruiter> recruiters = recruiterDao.findAllRecruiter();
 		return recruiters;
 	}
 	
@@ -67,7 +68,7 @@ public class RecruiterController {
     }
 	
 
-	@GetMapping("api/recruiter/{rid}/job/application")
+	@GetMapping("/api/recruiter/{rid}/job/application")
 	public List<Application> FindApplicationsByJobsPostedByRecruiters(@PathVariable("rid") int rid) {
 		Recruiter recruiter = recruiterRepository.findById(rid).get();
 		List<Job> jobs = recruiter.getJobsCreatedByRecruiter();
@@ -78,7 +79,7 @@ public class RecruiterController {
 		return applications;
 	}
 	
-	@GetMapping("api/recruiter/{rid}/job/{jid}/application")
+	@GetMapping("/api/recruiter/{rid}/job/{jid}/application")
 	public List<Application> FindApplicationsByJobsPostedByRecruiters(@PathVariable("rid") int rid,@PathVariable("jid") int jid) {
 		Job job = jobrepository.findById(jid).get();
 		List<Application> applications =job.getApplicationsForThisJob();
