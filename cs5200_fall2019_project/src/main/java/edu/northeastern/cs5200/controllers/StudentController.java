@@ -202,7 +202,7 @@ public class StudentController {
 	}
 
 	
-
+	
 	
 
 	@GetMapping("api/student/{sid}/group")
@@ -231,5 +231,10 @@ public class StudentController {
     }
 	
 	
+	@RequestMapping("/student")
+	public String sayStudent() {
+		return "Stduent.jsp";
+	}
 
+	
 }

@@ -2,6 +2,8 @@ package edu.northeastern.cs5200.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import edu.northeastern.cs5200.repositories.EmployeeRepository;
 
 @RestController
 public class EmployeeController {
+
 	@Autowired
 	EmployeeDao employeeDao;
 	GeneralDao generalDao;
@@ -37,6 +40,8 @@ public class EmployeeController {
 	
 	@GetMapping("/api/employee")
 	public Iterable<Employee> findAllEmployee() {
+		
+		
 		Iterable<Employee> employees = employeeDao.findAllEmployee();
 		return employees;
 	}
@@ -95,4 +100,13 @@ public class EmployeeController {
 
 	//TODO: notification and login-register
 	
+	
+
+	@RequestMapping("/api/employee")
+	public String sayEmployee(HttpSession session) {
+		return "Employee";
+	}
+		
+		
+
 }

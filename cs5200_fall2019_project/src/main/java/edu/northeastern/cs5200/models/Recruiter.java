@@ -68,9 +68,9 @@ public class Recruiter extends User{
 
 	//
 
-	public Recruiter(String firstName, String lastName, String password, String email, Boolean verified,
+	public Recruiter(String firstName, String lastName, String password, String email, String userDtype, Boolean verified,
 			String jobTitle, String company) {
-		super(firstName, lastName, password, email);
+		super(firstName, lastName, password, email, userDtype);
 		this.verified = verified;
 		this.jobTitle = jobTitle;
 		this.company = company;

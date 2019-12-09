@@ -61,8 +61,8 @@ public class Student extends User{
 		super();
 	}
 	
-	public Student(String firstName, String lastName, String password, String email, Boolean verified, Boolean enablePrime) {
-		super(firstName, lastName, password, email);
+	public Student(String firstName, String lastName, String password, String email, String userDtype, Boolean verified, Boolean enablePrime) {
+		super(firstName, lastName, password, email, userDtype);
 		this.verified = verified;
 		this.enablePrime = enablePrime;
 	}

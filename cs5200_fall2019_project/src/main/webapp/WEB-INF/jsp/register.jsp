@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+ <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <form id="register" action="register" method="post">
     <label>Registration </label>
     <br/>
@@ -19,14 +22,8 @@
     <button>Submit</button>
     <br/>
     <label>Login </label>  
-    <br/>  
-      <form:form method = "GET" action = "redirect">
-         <table>
-            <tr>
-               <td>
-                  <input type = "submit" value = "Login"/>
-               </td>
-            </tr>
-         </table>  
-      </form:form>  
+    <br/> 
+</form>
+<form id="login" action="login" method="post"> 
+    <button>login</button>
 </form>

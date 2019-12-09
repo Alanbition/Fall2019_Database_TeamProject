@@ -22,6 +22,8 @@ public class Employee extends User{
 	private String jobTitle;
 	private Boolean verified;
 	private Integer activePoint;
+	
+	
 
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY, optional = false)
 	private Group group;
@@ -61,9 +63,9 @@ public class Employee extends User{
 	}
 	
 
-	public Employee(String firstName, String lastName, String password, String email, String bankAccount, Boolean verified,
+	public Employee(String firstName, String lastName, String password, String email, String userDtype, String bankAccount, Boolean verified,
 			String jobTitle, Integer activePoint) {
-		super(firstName, lastName, password, email);
+		super(firstName, lastName, password, email, userDtype);
 		this.bankAccount = bankAccount;
 		this.verified = verified;
 		this.jobTitle = jobTitle;

@@ -30,3 +30,5 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
+cs5200_fall2019_project/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+cs5200_fall2019_project/target/m2e-wtp/web-resources/META-INF/maven/edu.northeastern.cs5200/cs5200_fall2019_project/pom.properties

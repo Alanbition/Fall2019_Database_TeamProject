@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import edu.northeastern.cs5200.models.Admin;
 import edu.northeastern.cs5200.models.Application;
 import edu.northeastern.cs5200.models.EducationBackground;
 import edu.northeastern.cs5200.models.Employee;
@@ -20,6 +21,7 @@ import edu.northeastern.cs5200.models.ReferralRequest;
 import edu.northeastern.cs5200.models.ResearchExperience;
 import edu.northeastern.cs5200.models.Resume;
 import edu.northeastern.cs5200.models.Student;
+import edu.northeastern.cs5200.repositories.AdminRepository;
 import edu.northeastern.cs5200.repositories.ApplicationRepository;
 import edu.northeastern.cs5200.repositories.EducationBackgroundRepository;
 import edu.northeastern.cs5200.repositories.EmployeeRepository;
@@ -40,6 +42,8 @@ import edu.northeastern.cs5200.repositories.StudentRepository;
 @Controller("GeneralDao")
 @Service
 public class GeneralDao {
+	@Autowired
+	AdminRepository adminRepository;
 	@Autowired
 	StudentRepository studentRepository;
 	@Autowired
@@ -79,6 +83,7 @@ public class GeneralDao {
 
 	
 	public void truncateDatabase () {
+		adminRepository.deleteAll();
 		studentRepository.deleteAll();
 		jobInterestRepository.deleteAll();
 		projectRepository.deleteAll();
@@ -97,11 +102,13 @@ public class GeneralDao {
 		notificationRepository.deleteAll();
 		employeeRepository.deleteAll();
 		recruiterRepository.deleteAll();
-		
-		
-		
+
 	}
 	
+	
+	public Admin createAdmin(Admin admin){
+		return adminRepository.save(admin);
+	}
 	
 	public Student createStudent(Student student){
 		return studentRepository.save(student);
