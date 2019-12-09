@@ -3,11 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Job detail</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3.org/StyleSheets/Core/Modernist" type="text/css" />
 </head>
 <body>
 <h2>job detail</h2>
+<h4>keywords for this job</h4>
 <div id="description"></div>
-<div id="url"><</div>
+<h4>URL:</h4>
+<div id="url"></div>
+<button type="button" class="btn btn-primary">Apply</button>
+<button type="button" class="btn btn-outline-danger">Favorite</button>
 <script type="text/javascript">
 var url = document.location.href,
 params = url.split('?')[1].split('&')
@@ -21,9 +32,13 @@ console.log(keywords)
 console.log(url)
 const container =document.getElementById('description')
 const url_container =document.getElementById('url')
+const link = document.createElement('a')
+link.setAttribute('href', url); 
+var text = document.createTextNode(url)
+link.appendChild(text);
 
 container.innerHTML = keywords;
-url_container.innerHTML = url
+url_container.appendChild(link);
         	      /*
 var htmlObject = container.firstChild;
 container.appendChild(htmlObject) */
