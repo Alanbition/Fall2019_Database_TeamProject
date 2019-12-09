@@ -59,10 +59,10 @@ public class LoginRegisterController {
 		
 	    ModelAndView model = new ModelAndView("welcome");
 	    model.addObject("test", "Goodbye Word");
-	    model.addObject("fistName", currentUser.getFirstName());
+	    model.addObject("firstName", currentUser.getFirstName());
 	    model.addObject("lastName", currentUser.getLastName());
 	    model.addObject("dtype", currentUser.getUserDtype());
-	    model.addObject("test", "Goodbye Word");
+
 	    
 	    return model;
 	}
@@ -83,7 +83,10 @@ public class LoginRegisterController {
 			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
 			generalDao.createRecruiter(recruiter);
 			session.setAttribute("currentUser", recruiter);
-		}else {
+		}else if(userRole.contentEquals("Admin")){
+			Admin admin = new Admin(firstName, lastName, email, password, userRole);
+			generalDao.createAdmin(admin);
+			session.setAttribute("currentUser", admin);
 		}
 		//if (request.getParameter("login")!= null){
 			//return "redirect:login";
