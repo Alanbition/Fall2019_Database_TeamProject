@@ -61,9 +61,9 @@ public class Employee extends User{
 	}
 	
 
-	public Employee(String firstName, String lastName, String password, String email, String bankAccount, Boolean verified,
+	public Employee(String firstName, String lastName, String password, String email, String userDtype, String bankAccount, Boolean verified,
 			String jobTitle, Integer activePoint) {
-		super(firstName, lastName, password, email);
+		super(firstName, lastName, password, email, userDtype);
 		this.bankAccount = bankAccount;
 		this.verified = verified;
 		this.jobTitle = jobTitle;

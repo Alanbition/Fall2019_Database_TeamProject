@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-
 public class User {
 	@Id
 	@GeneratedValue
@@ -17,14 +16,16 @@ public class User {
 	private String lastName;
 	private String password;
 	private String email;
+	private String userDtype;
 	
 	public User() {}
 	
-	public User(String firstName, String lastName, String password, String email) {
+	public User(String firstName, String lastName, String password, String email, String userDtype) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
+		this.userDtype = userDtype;
 	}	
 	
 	public int getId() {
@@ -56,6 +57,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getUserDtype() {
+		return userDtype;
+	}
+	public void setUserDtype(String userDtype) {
+		this.userDtype = userDtype;
 	}
 
 }
