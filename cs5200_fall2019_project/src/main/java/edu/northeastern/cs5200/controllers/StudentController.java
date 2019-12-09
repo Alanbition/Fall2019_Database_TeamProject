@@ -1,12 +1,16 @@
 package edu.northeastern.cs5200.controllers;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +19,16 @@ import edu.northeastern.cs5200.daos.GroupDao;
 import edu.northeastern.cs5200.daos.StudentDao;
 import edu.northeastern.cs5200.models.Application;
 import edu.northeastern.cs5200.models.EducationBackground;
+import edu.northeastern.cs5200.models.Employee;
 import edu.northeastern.cs5200.models.Group;
 import edu.northeastern.cs5200.models.IndustrialExperience;
+import edu.northeastern.cs5200.models.Job;
 import edu.northeastern.cs5200.models.Project;
+import edu.northeastern.cs5200.models.Recruiter;
 import edu.northeastern.cs5200.models.ResearchExperience;
 import edu.northeastern.cs5200.models.Resume;
 import edu.northeastern.cs5200.models.Student;
+import edu.northeastern.cs5200.models.User;
 import edu.northeastern.cs5200.repositories.ApplicationRepository;
 import edu.northeastern.cs5200.repositories.EducationBackgroundRepository;
 import edu.northeastern.cs5200.repositories.GroupRepository;
@@ -31,7 +39,7 @@ import edu.northeastern.cs5200.repositories.ResumeRepository;
 import edu.northeastern.cs5200.repositories.StudentRepository;
 
 	
-@RestController
+@Controller
 public class StudentController {
 
 	@Autowired
@@ -58,6 +66,22 @@ public class StudentController {
 	EducationBackgroundRepository educationBackgroundRepository;
 	
 
+	
+	@RequestMapping(value="/apply", method=RequestMethod.POST)
+	public void apply(@RequestParam("jobTitle")String jobTitle, HttpSession session){
+	//user object will automatically be populated with values sent from browser or jsp page. Provide your authentication logic here
+		System.out.println("applying?");
+		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
+		Student currentUser = (Student)
+		session.getAttribute("currentUser");
+		Application application = new Application(currentUser,job);
+
+		
+	} 
+
+	
+	
+	
 
 	@GetMapping ("/api/student")
 	public Iterable <Student> findAllStudent (){
