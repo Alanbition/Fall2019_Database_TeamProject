@@ -42,26 +42,72 @@ public class LoginRegisterController {
 	     return "register";
 	}
 
-	@RequestMapping(value="/redirect")
-	public String redirectToLogin() {
-		System.out.println("redirect");
-	    return "redirect:login";
-	}
-	
 
-	@RequestMapping(value="/welcome",method = RequestMethod.GET)
-	public ModelAndView welcomeLogin(HttpServletRequest request, HttpSession session) {
+	@RequestMapping(value="/student",method = RequestMethod.GET)
+	public ModelAndView welcomeStudent(HttpServletRequest request, HttpSession session) {
 		System.out.println("welcome");
 		User currentUser = (User) session.getAttribute("currentUser");
 		
 		//model.addAttribute("message", currentUser.getEmail());
 		//model.addAttribute("test", "Goodbye Word");
 		
-	    ModelAndView model = new ModelAndView("welcome");
+	    ModelAndView model = new ModelAndView("student");
 	    model.addObject("test", "Goodbye Word");
 	    model.addObject("firstName", currentUser.getFirstName());
 	    model.addObject("lastName", currentUser.getLastName());
-	    model.addObject("dtype", currentUser.getUserDtype());
+
+
+	    
+	    return model;
+	}
+	
+	@RequestMapping(value="/employee",method = RequestMethod.GET)
+	public ModelAndView welcomeEmployee(HttpServletRequest request, HttpSession session) {
+		System.out.println("welcome");
+		User currentUser = (User) session.getAttribute("currentUser");
+		
+		//model.addAttribute("message", currentUser.getEmail());
+		//model.addAttribute("test", "Goodbye Word");
+		
+	    ModelAndView model = new ModelAndView("employee");
+	    model.addObject("firstName", currentUser.getFirstName());
+	    model.addObject("lastName", currentUser.getLastName());
+
+
+	    
+	    return model;
+	}
+
+	@RequestMapping(value="/recruiter",method = RequestMethod.GET)
+	public ModelAndView welcomeRecruiter(HttpServletRequest request, HttpSession session) {
+		System.out.println("welcome");
+		User currentUser = (User) session.getAttribute("currentUser");
+		
+		//model.addAttribute("message", currentUser.getEmail());
+		//model.addAttribute("test", "Goodbye Word");
+		
+	    ModelAndView model = new ModelAndView("recruiter");
+	    model.addObject("firstName", currentUser.getFirstName());
+	    model.addObject("lastName", currentUser.getLastName());
+
+
+	    
+	    return model;
+	}
+	
+	@RequestMapping(value="/admin",method = RequestMethod.GET)
+	public ModelAndView welcomeAdmin(HttpServletRequest request, HttpSession session) {
+		System.out.println("welcome");
+		User currentUser = (User) session.getAttribute("currentUser");
+		List<User> users = userDao.findAllUsers();
+		//model.addAttribute("message", currentUser.getEmail());
+		//model.addAttribute("test", "Goodbye Word");
+		
+	    ModelAndView model = new ModelAndView("admin");
+	    model.addObject("users", users);
+	    model.addObject("firstName", currentUser.getFirstName());
+	    model.addObject("lastName", currentUser.getLastName());
+	    
 
 	    
 	    return model;
@@ -75,24 +121,28 @@ public class LoginRegisterController {
 			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
 			generalDao.createStudent(student);
 			session.setAttribute("currentUser", student);
+			return "redirect:student";
 		}else if(userRole.equals("Employee")){
 			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
 			generalDao.createEmployee(employee);
 			session.setAttribute("currentUser", employee);
+			return "redirect:employee";
 		}else if(userRole.equals("Recruiter")){
 			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
 			generalDao.createRecruiter(recruiter);
 			session.setAttribute("currentUser", recruiter);
+			return "redirect:recruiter";
 		}else if(userRole.contentEquals("Admin")){
 			Admin admin = new Admin(firstName, lastName, email, password, userRole);
 			generalDao.createAdmin(admin);
 			session.setAttribute("currentUser", admin);
+			return "redirect:admin";
 		}
 		//if (request.getParameter("login")!= null){
 			//return "redirect:login";
 		//}
 		//System.out.println(request.getParameterNames());
-		return "redirect:welcome";
+		return "register";
 	} 
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
@@ -105,12 +155,27 @@ public class LoginRegisterController {
 		for (User user: users) {
 			if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
 				session.setAttribute("currentUser", user);
-				return "redirect:welcome";
+				String userRole = user.getUserDtype();
+				if (userRole.equals("Student")) {
+					return "redirect:student";
+				}else if(userRole.equals("Employee")){
+					return "redirect:employee";
+				}else if(userRole.equals("Recruiter")){
+					return "redirect:recruiter";
+				}else if(userRole.contentEquals("Admin")){
+					return "redirect:admin";
+				}
 			}
 		}
     	return "login";
     } 
     
+	@RequestMapping("/logout")
+	public String requestLogout(HttpSession session) {
+		session.invalidate();
+		return "register";
+	}
+	
 	@RequestMapping("/api/register")
 	public String register(@RequestBody User user,HttpSession session) {
 		session.setAttribute("currentUser", user);

@@ -28,3 +28,7 @@ public class Cs5200Fall2019ProjectApplication {
 	}
 
 }
+
+//spring.datasource.url=jdbc:mysql://cs5200-fall2019-shijinwang-jpa.c5agblqjtqma.us-east-2.rds.amazonaws.com:3306/cs5200_jpa
+//spring.datasource.username=alanbition
+//spring.datasource.password=wangshijin37
