@@ -207,5 +207,10 @@ public class StudentController {
     }
 	
 	
+	@RequestMapping("/student")
+	public String sayStudent() {
+		return "Stduent.jsp";
+	}
 
+	
 }

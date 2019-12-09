@@ -23,7 +23,7 @@
 </head>
 <body>
  <div class= "container">
-  <h2>Employee List</h2>
+  <h2>Employee </h2>
   <table class="table table-striped">
    <thead>
     <tr>
