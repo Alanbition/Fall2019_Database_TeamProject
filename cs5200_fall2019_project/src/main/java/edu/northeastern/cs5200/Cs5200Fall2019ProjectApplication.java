@@ -3,6 +3,7 @@ package edu.northeastern.cs5200;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.northeastern.cs5200.daos.ApplicationDao;
 import edu.northeastern.cs5200.daos.EmployeeDao;
@@ -18,6 +19,12 @@ import edu.northeastern.cs5200.models.Recruiter;
 public class Cs5200Fall2019ProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Cs5200Fall2019ProjectApplication.class, args); 
+		
+		
+	
+		
+		
+		
 	}
 
 }

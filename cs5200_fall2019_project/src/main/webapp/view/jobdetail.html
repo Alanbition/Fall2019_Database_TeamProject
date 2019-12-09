@@ -7,20 +7,24 @@
 <body>
 <h2>job detail</h2>
 <div id="description"></div>
+<div id="url"><</div>
 <script type="text/javascript">
 var url = document.location.href,
-params = url.split('?')[1].substring(7)
+params = url.split('?')[1].split('&')
 /* for (var i = 0, l = params.length; i < l; i++) {
  tmp = params[i].split('=');
  data[tmp[0]] = tmp[1];
 } */
-var description= params
-console.log(description)
-
+var keywords=params[0].substring(9)
+var url=params[1].substring(3)
+console.log(keywords)
+console.log(url)
 const container =document.getElementById('description')
-/* const p = document.createElement('p')
-p.textContent = description */
-container.innerHTML = description;/* 
+const url_container =document.getElementById('url')
+
+container.innerHTML = keywords;
+url_container.innerHTML = url
+        	      /*
 var htmlObject = container.firstChild;
 container.appendChild(htmlObject) */
 </script>

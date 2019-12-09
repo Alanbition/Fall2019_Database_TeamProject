@@ -3,6 +3,8 @@ package edu.northeastern.cs5200.daos;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import edu.northeastern.cs5200.repositories.*;
 
 @Controller("EmployeeDao")
 @Service
+@Transactional
 public class EmployeeDao {
 	@Autowired
 	EmployeeRepository employeeRepository;
@@ -109,4 +112,5 @@ public class EmployeeDao {
 		Employee e = employeeRepository.findEmployeeByCredentials(email, password);
 		return e;
 	}
+	
 }

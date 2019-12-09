@@ -22,6 +22,8 @@ public class Employee extends User{
 	private String jobTitle;
 	private Boolean verified;
 	private Integer activePoint;
+	
+	
 
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL,fetch = FetchType.LAZY, optional = false)
 	private Group group;
