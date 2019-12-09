@@ -1,10 +1,11 @@
 package edu.northeastern.cs5200.controllers;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import edu.northeastern.cs5200.daos.GeneralDao;
 import edu.northeastern.cs5200.daos.GroupDao;
@@ -37,6 +37,7 @@ import edu.northeastern.cs5200.repositories.ProjectRepository;
 import edu.northeastern.cs5200.repositories.ResearchExperienceRepository;
 import edu.northeastern.cs5200.repositories.ResumeRepository;
 import edu.northeastern.cs5200.repositories.StudentRepository;
+import org.springframework.web.servlet.ModelAndView;
 
 	
 @Controller
@@ -65,20 +66,21 @@ public class StudentController {
 	@Autowired
 	EducationBackgroundRepository educationBackgroundRepository;
 	
-
-	
-	@RequestMapping(value="/apply", method=RequestMethod.POST)
-	public void apply(@RequestParam("jobTitle")String jobTitle, HttpSession session){
-	//user object will automatically be populated with values sent from browser or jsp page. Provide your authentication logic here
-		System.out.println("applying?");
+	@RequestMapping(value="/apply", method = RequestMethod.POST)
+	public String apply(HttpServletRequest request, HttpSession session){
+		System.out.println("Start Application");
+		String studentId = request.getParameter("id");
+		int sid = Integer.parseInt(studentId);
+		String jobTitle = request.getParameter("jobTitle");
+		Student student = studentDao.findStudentById(sid);
 		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
-		Student currentUser = (Student)
-		session.getAttribute("currentUser");
-		Application application = new Application(currentUser,job);
-
-		
-	} 
-
+		generalDao.createJob(job);
+		Application application = new Application(student,job);
+		generalDao.createApplication(application);
+		studentDao.addApplicationToStudent(application, student);
+		session.setAttribute("currentUser", student);
+		return "redirect:student";
+	}
 	
 	
 	

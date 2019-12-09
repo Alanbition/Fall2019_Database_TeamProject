@@ -13,12 +13,14 @@
 </head>
 <body>
 <h2>job detail</h2>
+<h1  id="jobtitle"></h1>
 <h4>keywords for this job</h4>
 <div id="description"></div>
 <h4>URL:</h4>
 <div id="url"></div>
-<form id="apply" action="apply" method="post"> 
-    <button type="button" class="btn btn-primary">Apply</button>
+
+<form id="apply" action="http://localhost:8080/apply" method="post"> 
+    <button  class="btn btn-primary">apply</button>
 </form>
 <button type="button" class="btn btn-outline-danger">Favorite</button>
 <script type="text/javascript">
@@ -29,8 +31,9 @@ params = url.split('?')[1].split('&')
  data[tmp[0]] = tmp[1];
 } */
 var keywords=params[0].substring(9)
-var url=params[1].substring(3)
-console.log(keywords)
+var url=params[1].substring(4)
+var title=params[2].substring(6).replace('%20',' ')
+console.log(title)
 console.log(url)
 const container =document.getElementById('description')
 const url_container =document.getElementById('url')
@@ -41,6 +44,8 @@ link.appendChild(text);
 
 container.innerHTML = keywords;
 url_container.appendChild(link);
+const title_container =document.getElementById('jobtitle')
+title_container.innerHTML = title;
         	      /*
 var htmlObject = container.firstChild;
 container.appendChild(htmlObject) */
