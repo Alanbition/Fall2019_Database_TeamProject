@@ -46,6 +46,8 @@ public class LoginRegisterController {
 	RecruiterDao recruiterDao;
 	@Autowired
 	GroupDao groupDao;
+	@Autowired
+	ApplicationDao applicationDao;
 	
 	List<User> users = new ArrayList<User>();
 	@RequestMapping("/")
@@ -63,6 +65,7 @@ public class LoginRegisterController {
 		//model.addAttribute("test", "Goodbye Word");findGroupsForStudent
 		Student thisStudent = studentDao.findStudentById(currentUser.getId());
 		List<Application> applications = studentDao.findApplicationsForStudent(thisStudent);
+		List<Job> jobs = applicationDao.findJobForApplication(applications);
 		List<Group> groups = studentDao.findGroupsForStudent(thisStudent);
 		List<Resume> resumes = studentDao.findResumesForStudent(thisStudent);
 		List<Employee> employees = new ArrayList<Employee>();
@@ -70,7 +73,7 @@ public class LoginRegisterController {
 			employees.add(groupDao.getGroupEmployee(group));		
 		}
 		request.setAttribute("employees", employees);
-		request.setAttribute("applications", applications);
+		request.setAttribute("applications", jobs);
 		request.setAttribute("groups", groups);
 		request.setAttribute("resumes", resumes);		
 		request.setAttribute("firstName", currentUser.getFirstName());

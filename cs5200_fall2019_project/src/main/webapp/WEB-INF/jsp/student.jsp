@@ -32,8 +32,8 @@
 <br/> 
 <c:forEach items="${applications}" var="application">
     <tr>  
-		<td>${application.description}</td> 
-		<td>${application.process}</td> 
+		<td>${application.title}</td> 
+		<td>${application.company}</td> 
 		<br/>    
     </tr>
 </c:forEach>
