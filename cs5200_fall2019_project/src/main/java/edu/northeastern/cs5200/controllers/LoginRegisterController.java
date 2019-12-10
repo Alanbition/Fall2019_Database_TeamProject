@@ -65,6 +65,11 @@ public class LoginRegisterController {
 		List<Application> applications = studentDao.findApplicationsForStudent(thisStudent);
 		List<Group> groups = studentDao.findGroupsForStudent(thisStudent);
 		List<Resume> resumes = studentDao.findResumesForStudent(thisStudent);
+		List<Employee> employees = new ArrayList<Employee>();
+		for (Group group: groups) {
+			employees.add(groupDao.getGroupEmployee(group));		
+		}
+		request.setAttribute("employees", employees);
 		request.setAttribute("applications", applications);
 		request.setAttribute("groups", groups);
 		request.setAttribute("resumes", resumes);		
@@ -92,10 +97,11 @@ public class LoginRegisterController {
 	public String welcomeEmployee(HttpServletRequest request, HttpSession session) {
 		System.out.println("/employee");
 		User currentUser = (User) session.getAttribute("currentUser");
-		
-		//model.addAttribute("message", currentUser.getEmail());
-		//model.addAttribute("test", "Goodbye Word");
-		
+		Employee thisEmployee = employeeDao.findEmployeeById(currentUser.getId());		
+		Group group = employeeDao.getEmployeeManagedGroup(thisEmployee);
+		List<Student> students = studentDao.findStudentsInGroup(group);
+		request.setAttribute("group", group);
+		request.setAttribute("students", students);
 		request.setAttribute("firstName", currentUser.getFirstName());
 		request.setAttribute("lastName", currentUser.getLastName());
 	    return "employee";

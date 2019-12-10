@@ -3,19 +3,23 @@
 <form id="welcome" action="welcome" method="get">
     <label>Welcome ${lastName} ${firstName} AS Student!</label> 
 </form>
-<label>Groups Joined</label>
+<label><b>Groups Joined</b></label>
 <br/> 
-<c:forEach items="${groups}" var="group">
-    <tr>    
+<c:forEach items="${groups}" var="group" varStatus="status">
+    <tr>
+        <td><b>Group Name: </b></td>    
         <td>${group.name}</td>
+        <td><b>Employee Name: </b></td>
+        <td>${employees[status.index].firstName}</td>
+        <td>${employees[status.index].lastName}</td>
 		<br/> 
     </tr>
 </c:forEach>
 <form id="addGroup" action="addGroup" method="post"> 
-    <button>Add Group</button>
+    <button><b>Add Group</button>
 </form>
 
-<label>Resumes Created</label>
+<label><b>Resumes Created</b></label>
 <br/> 
 <c:forEach items="${resumes}" var="resume">
     <tr> 
@@ -24,7 +28,7 @@
     </tr>
 </c:forEach>
 <br/> 
-<label>Jobs Applied</label>
+<label><b>Jobs Applied</b></label>
 <br/> 
 <c:forEach items="${applications}" var="application">
     <tr>  
