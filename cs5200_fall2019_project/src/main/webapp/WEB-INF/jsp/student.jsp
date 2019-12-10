@@ -40,7 +40,8 @@
 <br/> 
 <c:forEach items="${applications}" var="application">
     <tr>  
-		<td>Job Name: ${application.description}</td> 
+		<td>Job Name: ${application.title}</td> 
+		<td>Company: ${application.company}</td> 
 		<td>Status: ${application.process}</td> 
 		<br/>    
     </tr>

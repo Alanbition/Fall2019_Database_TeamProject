@@ -40,9 +40,9 @@ public class Application {
 	}
 	public void setThisJobApplications(Job thisJobApplications) {
 		this.thisJobApplications =  thisJobApplications;
-		if (!thisJobApplications.getApplicationsForThisJob().contains(this)) {
-			thisJobApplications.getApplicationsForThisJob().add(this);
-		}
+//		if (!thisJobApplications.getApplicationsForThisJob().contains(this)) {
+//			thisJobApplications.getApplicationsForThisJob().add(this);
+//		}
 	}	
 	//
 	public Application() {

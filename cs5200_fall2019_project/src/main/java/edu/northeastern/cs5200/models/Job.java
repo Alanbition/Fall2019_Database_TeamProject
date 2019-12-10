@@ -18,7 +18,7 @@ public class Job {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
-	private String descripition;
+	private String description;
 	private String location;
 	private String requirement;
 	private String company;
@@ -62,10 +62,10 @@ public class Job {
 
 	public Job() {}
 
-	public Job(String title, String descripition, String location, String requirement, String company) {
+	public Job(String title, String description, String location, String requirement, String company) {
 		super();
 		this.title = title;
-		this.descripition = descripition;
+		this.description = description;
 		this.location = location;
 		this.requirement = requirement;
 		this.company = company;
@@ -79,12 +79,12 @@ public class Job {
 		this.title = title;
 	}
 
-	public String getDescripition() {
-		return descripition;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripition(String descripition) {
-		this.descripition = descripition;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getLocation() {

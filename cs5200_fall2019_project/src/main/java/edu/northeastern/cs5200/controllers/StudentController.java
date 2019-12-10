@@ -49,6 +49,8 @@ public class StudentController {
 	@Autowired
 	StudentDao studentDao;
 	@Autowired
+	ApplicationDao applicationDao;
+	@Autowired
 	GroupDao groupDao;
 	@Autowired
 	RecruiterDao recruiterDao;
@@ -56,8 +58,6 @@ public class StudentController {
 	GeneralDao generalDao;
 	@Autowired
 	JobDao jobDao;
-	@Autowired
-	ApplicationDao applicationDao;
 	@Autowired
 	StudentRepository studentRepository;
 	@Autowired
@@ -81,22 +81,21 @@ public class StudentController {
 		String studentId = request.getParameter("id");
 		String jobTitle = request.getParameter("jobTitle");
 		if (studentId!=null & jobTitle!=null) {
-			int sid = Integer.parseInt(studentId);
-			Student student = studentDao.findStudentById(sid);
-			Job job = new Job(jobTitle, "Description of the job posting","Boston","","Authentic");
-			Job thisJob = generalDao.createJob(job);
-			Recruiter recruiter = new Recruiter("Alan", "Wang", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
-			Recruiter thisRecruiter = generalDao.createRecruiter(recruiter);
-			Application application = new Application(jobTitle, "referral", "Not Viewed");
-			Application thisApplication = generalDao.createApplication(application);
-			//jobDao.setRecruiterForJob(thisRecruiter, thisJob);
-			//recruiterDao.addJobToRecruiter(thisJob, thisRecruiter);
-			//thisApplication = applicationDao.setJobForApplication(thisJob, thisApplication);
-			studentDao.addApplicationToStudent(thisApplication, student);
-		
-			session.setAttribute("currentUser", student);
-			return "redirect:student";
-		}
+
+		int sid = Integer.parseInt(studentId);
+		Student student = studentDao.findStudentById(sid);
+		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
+		generalDao.createJob(job);
+		Recruiter recruiter = new Recruiter("firstName", "lastName", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
+		generalDao.createRecruiter(recruiter);
+		Application application = new Application("description", "referral", "process");
+		generalDao.createApplication(application);
+		//recruiterDao.addJobToRecruiter(job, recruiter);
+		//studentDao.addApplicationToStudent(application, student);
+		applicationDao.setJobForApplication(job,application);
+		studentDao.addApplicationToStudent(application, student);
+		session.setAttribute("currentUser", student);
+		return "redirect:student";}
 		return "apply";
 	}
 
