@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.northeastern.cs5200.daos.ApplicationDao;
 import edu.northeastern.cs5200.daos.GeneralDao;
 import edu.northeastern.cs5200.daos.GroupDao;
+import edu.northeastern.cs5200.daos.JobDao;
 import edu.northeastern.cs5200.daos.RecruiterDao;
 import edu.northeastern.cs5200.daos.StudentDao;
 import edu.northeastern.cs5200.models.Application;
@@ -53,6 +55,10 @@ public class StudentController {
 	@Autowired
 	GeneralDao generalDao;
 	@Autowired
+	JobDao jobDao;
+	@Autowired
+	ApplicationDao applicationDao;
+	@Autowired
 	StudentRepository studentRepository;
 	@Autowired
 	GroupRepository groupRepository;
@@ -79,12 +85,15 @@ public class StudentController {
 			Student student = studentDao.findStudentById(sid);
 			Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
 			Job thisJob = generalDao.createJob(job);
-			Recruiter recruiter = new Recruiter("firstName", "lastName", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
+			Recruiter recruiter = new Recruiter("Alan", "Wang", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
 			Recruiter thisRecruiter = generalDao.createRecruiter(recruiter);
-			Application application = new Application("description", "referral", "process");
+			Application application = new Application("Applied Job description", "referral", "Not Viewed");
 			Application thisApplication = generalDao.createApplication(application);
-			recruiterDao.addJobToRecruiter(thisJob, thisRecruiter);
+			//jobDao.setRecruiterForJob(thisRecruiter, thisJob);
+			//recruiterDao.addJobToRecruiter(thisJob, thisRecruiter);
+			thisApplication = applicationDao.setJobForApplication(thisJob, thisApplication);
 			studentDao.addApplicationToStudent(thisApplication, student);
+		
 			session.setAttribute("currentUser", student);
 			return "redirect:student";
 		}

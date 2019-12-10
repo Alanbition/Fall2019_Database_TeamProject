@@ -23,6 +23,20 @@ public class Job {
 	private String requirement;
 	private String company;
 	
+	//Many To One for recruiter
+	@ManyToOne
+	private Recruiter thisRecruiterJobs;
+
+	public Recruiter getThisRecruiterJobs() {
+		return thisRecruiterJobs;
+	}
+	public void setThisRecruiterJobs(Recruiter thisRecruiterJobs) {
+		this.thisRecruiterJobs =  thisRecruiterJobs;
+		if (!thisRecruiterJobs.getJobsCreatedByRecruiter().contains(this)) {
+			thisRecruiterJobs.getJobsCreatedByRecruiter().add(this);
+		}
+	}
+	
 	//One To Many for Applications
 	@OneToMany (mappedBy = "thisJobApplications")
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -43,19 +57,7 @@ public class Job {
 	}
 	//
 
-	//Many To One for recruiter
-	@ManyToOne
-	private Recruiter thisRecruiterJobs;
 
-	public Recruiter getThisRecruiterJobs() {
-		return thisRecruiterJobs;
-	}
-	public void setThisRecruiterJobs(Recruiter thisRecruiterJobs) {
-		this.thisRecruiterJobs =  thisRecruiterJobs;
-		if (!thisRecruiterJobs.getJobsCreatedByRecruiter().contains(this)) {
-			thisRecruiterJobs.getJobsCreatedByRecruiter().add(this);
-		}
-	}
 	//
 
 	public Job() {}

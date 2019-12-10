@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 @Entity
@@ -19,11 +21,12 @@ public class Recruiter extends User{
 	private String jobTitle;
 	private String company;
 	
-	public Recruiter() {}
+
 	
 
 	//For jobs OneToMany
-	@OneToMany(mappedBy = "thisRecruiterJobs", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "thisRecruiterJobs", orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Job> jobsCreatedByRecruiter;
 
@@ -48,7 +51,8 @@ public class Recruiter extends User{
 
 
 	//For notification OneToMany	
-	@OneToMany (mappedBy = "thisRecruiterNotifications")
+	@OneToMany (mappedBy = "thisRecruiterNotifications",  orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Notification> notificationsForRecruiter;
 
@@ -68,7 +72,9 @@ public class Recruiter extends User{
 
 
 	//
-
+	public Recruiter() {
+		super();
+	}
 	public Recruiter(String firstName, String lastName, String password, String email, String userDtype, Boolean verified,
 			String jobTitle, String company) {
 		super(firstName, lastName, password, email, userDtype);

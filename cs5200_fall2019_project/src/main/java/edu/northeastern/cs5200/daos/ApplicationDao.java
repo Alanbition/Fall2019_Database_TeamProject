@@ -24,7 +24,7 @@ public class ApplicationDao {
 		return applicationRepository.save(application);
 	}
 
-	public Application setApplicationForJob(Job job, Application application) {
+	public Application setJobForApplication(Job job, Application application) {
 		application.setThisJobApplications(job);
     	jobRepository.save(job);
     	return applicationRepository.save(application);

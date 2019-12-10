@@ -4,9 +4,11 @@
     <label>Welcome ${lastName} ${firstName} AS Student!</label> 
 </form>
 <label>Groups Joined</label>
+<br/> 
 <c:forEach items="${groups}" var="group">
     <tr>    
         <td>${group.name}</td>
+		<br/> 
     </tr>
 </c:forEach>
 <form id="addGroup" action="addGroup" method="post"> 
@@ -14,16 +16,21 @@
 </form>
 
 <label>Resumes Created</label>
+<br/> 
 <c:forEach items="${resumes}" var="resume">
     <tr> 
-		<td>${resume.skill}</td>     
+		<td>${resume.skill}</td>
+		<br/>      
     </tr>
 </c:forEach>
 <br/> 
 <label>Jobs Applied</label>
-<c:forEach items="${application}" var="application">
-    <tr> 
-		<td>${application.description}</td>     
+<br/> 
+<c:forEach items="${applications}" var="application">
+    <tr>  
+		<td>${application.description}</td> 
+		<td>${application.process}</td> 
+		<br/>    
     </tr>
 </c:forEach>
 <form id="logout" action="logout" method="post"> 
