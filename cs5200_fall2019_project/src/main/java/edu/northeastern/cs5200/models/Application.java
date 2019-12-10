@@ -53,11 +53,11 @@ public class Application {
 		this.process = process;
 	}
 	
-	public Application(Student student, Job job) {
-		super();
-		this.thisStudentApplications = student;
-		this.thisJobApplications = job;
-	}
+//	public Application(Student student, Job job) {
+//		super();
+//		this.thisStudentApplications = student;
+//		this.thisJobApplications = job;
+//	}
 
 	public String getDescription() {
 		return description;
