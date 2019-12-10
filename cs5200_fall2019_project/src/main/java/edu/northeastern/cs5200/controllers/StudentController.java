@@ -78,12 +78,13 @@ public class StudentController {
 	@RequestMapping(value="/apply", method = RequestMethod.POST)
 	public String apply(HttpServletRequest request, HttpSession session){
 		System.out.println("Start Application");
-		String studentId = request.getParameter("id");
+		String studentEmail = request.getParameter("email");
+		String studentPassword = request.getParameter("password");
 		String jobTitle = request.getParameter("jobTitle");
-		if (studentId!=null & jobTitle!=null) {
+		if (studentEmail!=null & jobTitle!=null) {
 
-		int sid = Integer.parseInt(studentId);
-		Student student = studentDao.findStudentById(sid);
+		//int sid = Integer.parseInt(studentId);
+		Student student = studentDao.findStudentByCredentials(studentEmail, studentPassword);
 		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
 		generalDao.createJob(job);
 		Recruiter recruiter = new Recruiter("firstName", "lastName", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");

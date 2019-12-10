@@ -42,7 +42,6 @@
     <tr>  
 		<td>Job Name: ${application.title}</td> 
 		<td>Company: ${application.company}</td> 
-		<td>Status: ${application.process}</td> 
 		<br/>    
     </tr>
 </c:forEach>
