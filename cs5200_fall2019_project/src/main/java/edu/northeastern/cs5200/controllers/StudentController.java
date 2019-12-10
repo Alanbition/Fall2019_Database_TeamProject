@@ -75,19 +75,19 @@ public class StudentController {
 		String studentId = request.getParameter("id");
 		String jobTitle = request.getParameter("jobTitle");
 		if (studentId!=null & jobTitle!=null) {
-		int sid = Integer.parseInt(studentId);
-		Student student = studentDao.findStudentById(sid);
-		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
-		generalDao.createJob(job);
-		Recruiter recruiter = new Recruiter("firstName", "lastName", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
-		generalDao.createRecruiter(recruiter);
-		Application application = new Application("description", "referral", "process");
-		generalDao.createApplication(application);
-		recruiterDao.addJobToRecruiter(job, recruiter);
-		studentDao.addApplicationToStudent(application, student);
-		studentDao.addApplicationToStudent(application, student);
-		session.setAttribute("currentUser", student);
-		return "redirect:student";}
+			int sid = Integer.parseInt(studentId);
+			Student student = studentDao.findStudentById(sid);
+			Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
+			Job thisJob = generalDao.createJob(job);
+			Recruiter recruiter = new Recruiter("firstName", "lastName", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
+			Recruiter thisRecruiter = generalDao.createRecruiter(recruiter);
+			Application application = new Application("description", "referral", "process");
+			Application thisApplication = generalDao.createApplication(application);
+			recruiterDao.addJobToRecruiter(thisJob, thisRecruiter);
+			studentDao.addApplicationToStudent(thisApplication, student);
+			session.setAttribute("currentUser", student);
+			return "redirect:student";
+		}
 		return "apply";
 	}
 

@@ -12,10 +12,18 @@
 <form id="addGroup" action="addGroup" method="post"> 
     <button>Add Group</button>
 </form>
+
 <label>Resumes Created</label>
 <c:forEach items="${resumes}" var="resume">
     <tr> 
 		<td>${resume.skill}</td>     
+    </tr>
+</c:forEach>
+<br/> 
+<label>Jobs Applied</label>
+<c:forEach items="${application}" var="application">
+    <tr> 
+		<td>${application.description}</td>     
     </tr>
 </c:forEach>
 <form id="logout" action="logout" method="post"> 
