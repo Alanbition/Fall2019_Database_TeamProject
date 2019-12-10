@@ -38,11 +38,10 @@
 <br/> 
 <label><b>Jobs Applied:</b></label>
 <br/> 
-<c:forEach items="${applications}" var="application">
+<c:forEach items="${jobs}" var="job">
     <tr>  
-		<td>Job Name: ${application.title}</td> 
-		<td>Company: ${application.company}</td> 
-		<td>Status: ${application.process}</td> 
+		<td>Job Name: ${job.title}</td> 
+		<td>Company: ${job.company}</td> 
 		<br/>    
     </tr>
 </c:forEach>
