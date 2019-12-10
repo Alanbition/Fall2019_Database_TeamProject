@@ -66,7 +66,7 @@ public class StudentController {
 	EducationBackgroundRepository educationBackgroundRepository;
 	
 
-	
+/*
 	@RequestMapping(value="/apply", method=RequestMethod.POST)
 	public void apply(@RequestParam("jobTitle")String jobTitle, HttpSession session){
 	//user object will automatically be populated with values sent from browser or jsp page. Provide your authentication logic here
@@ -78,7 +78,7 @@ public class StudentController {
 
 		
 	} 
-
+*/
 	
 	
 	

@@ -4,3 +4,6 @@
 <form id="logout" action="logout" method="post"> 
     <button>logout</button>
 </form>
+<form id="createGroup" action="createGroup" method="post"> 
+    <button>Create Group</button>
+</form>

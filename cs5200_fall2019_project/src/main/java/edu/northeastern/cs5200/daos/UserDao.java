@@ -18,5 +18,8 @@ public class UserDao {
 		List<User> users = (List<User>) userRepository.findAll();
 		return users;
 	}
+	public void deleteUserById(int id){
+		userRepository.deleteById(id);
+	}	
 
 }

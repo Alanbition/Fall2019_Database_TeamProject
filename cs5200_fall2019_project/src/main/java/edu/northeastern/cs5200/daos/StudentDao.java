@@ -172,10 +172,7 @@ public class StudentDao {
 		Student s = (Student) studentRepository.findById(sid).get();
 		return s;
     }
-    public Student findGroupById(int gid) {
-		Student s = (Student) studentRepository.findById(gid).get();
-		return s;
-    }
+
 
 	public List<Student> findAllStudents(){
 		List<Student> students = (List<Student>) studentRepository.findAll();

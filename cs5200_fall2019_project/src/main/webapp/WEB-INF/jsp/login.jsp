@@ -12,7 +12,5 @@
     <br/>
     <button>Login</button>
     <br/>
-    <label>Login </label>  
-    <br/>  
     <button>back</button>   
 </form>

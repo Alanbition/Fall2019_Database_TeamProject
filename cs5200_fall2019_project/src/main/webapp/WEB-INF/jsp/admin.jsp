@@ -1,22 +1,28 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <form id="welcome" action="welcome" method="get">
-    <label>Welcome! ${lastName} ${firstName} AS Admin</label> 
+    <label>Welcome! ${lastName} ${firstName} AS Admin!</label> 
 </form>
 <c:forEach items="${users}" var="user">
-    <tr>      
+    <tr> 
+		<td>${user.id}</td>     
         <td>${user.firstName}</td>
-    	<br/>
         <td>${user.lastName}</td>
-        <br/>
         <td>${user.password}</td>
-        <br/>
         <td>${user.email}</td>
-        <br/>
         <td>${user.userDtype}</td>
-        <br/>  
+    <br/> 
     </tr>
 </c:forEach>
+<form id="deleteuser" action="deleteuser" method="post"> 
+    <button>Delete</button>
+</form>
+<form id="updateuser" action="updateuser" method="post"> 
+    <button>Update</button>
+</form>
+<form id="createuser" action="createuser" method="post"> 
+    <button>Create</button>
+</form>
 <form id="logout" action="logout" method="post"> 
     <button>logout</button>
 </form>

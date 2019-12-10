@@ -19,12 +19,6 @@ import edu.northeastern.cs5200.models.Recruiter;
 public class Cs5200Fall2019ProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Cs5200Fall2019ProjectApplication.class, args); 
-		
-		
-	
-		
-		
-		
 	}
 
 }

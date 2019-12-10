@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Value;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,15 @@ public class LoginRegisterController {
 	GeneralDao generalDao;
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	StudentDao studentDao;
+	@Autowired
+	EmployeeDao employeeDao;
+	@Autowired
+	RecruiterDao recruiterDao;
+	@Autowired
+	GroupDao groupDao;
+	
 	List<User> users = new ArrayList<User>();
 	@RequestMapping("/")
 	public String index() {
@@ -44,43 +55,69 @@ public class LoginRegisterController {
 
 
 	@RequestMapping(value="/student",method = RequestMethod.GET)
-	public ModelAndView welcomeStudent(HttpServletRequest request, HttpSession session) {
-		System.out.println("welcome");
+	public String welcomeStudent(HttpServletRequest request, HttpSession session) {
+		System.out.println("/student");
 		User currentUser = (User) session.getAttribute("currentUser");
 		
 		//model.addAttribute("message", currentUser.getEmail());
-		//model.addAttribute("test", "Goodbye Word");
-		
-	    ModelAndView model = new ModelAndView("student");
-	    model.addObject("test", "Goodbye Word");
-	    model.addObject("firstName", currentUser.getFirstName());
-	    model.addObject("lastName", currentUser.getLastName());
+		//model.addAttribute("test", "Goodbye Word");findGroupsForStudent
+		Student thisStudent = studentDao.findStudentById(currentUser.getId());
+		List<Group> groups = studentDao.findGroupsForStudent(thisStudent);
+		List<Resume> resumes = studentDao.findResumesForStudent(thisStudent);
+		request.setAttribute("groups", groups);
+		request.setAttribute("resumes", resumes);		
+		request.setAttribute("firstName", currentUser.getFirstName());
+		request.setAttribute("lastName", currentUser.getLastName());
+	    return "student";
+	}
 
-
-	    
-	    return model;
+	@RequestMapping(value="/addGroup",method = RequestMethod.POST)
+	public String addGroup(HttpServletRequest request, HttpSession session) {
+		System.out.println("/addGroup");
+		User currentUser = (User) session.getAttribute("currentUser");
+	   	String groupId = request.getParameter("groupId");
+		request.setAttribute("groups", groupDao.findAllGroups());
+		if (groupId != null) {
+			Group thisGroup = groupDao.findGroupById(Integer.parseInt(groupId));
+			Student thisStudent = studentDao.findStudentById(currentUser.getId());
+			studentDao.enrollStudentToGroup(thisGroup, thisStudent);
+			return "redirect:student";
+		}	  
+	    return "addGroup";
 	}
 	
 	@RequestMapping(value="/employee",method = RequestMethod.GET)
-	public ModelAndView welcomeEmployee(HttpServletRequest request, HttpSession session) {
-		System.out.println("welcome");
+	public String welcomeEmployee(HttpServletRequest request, HttpSession session) {
+		System.out.println("/employee");
 		User currentUser = (User) session.getAttribute("currentUser");
 		
 		//model.addAttribute("message", currentUser.getEmail());
 		//model.addAttribute("test", "Goodbye Word");
 		
-	    ModelAndView model = new ModelAndView("employee");
-	    model.addObject("firstName", currentUser.getFirstName());
-	    model.addObject("lastName", currentUser.getLastName());
-
-
-	    
-	    return model;
+		request.setAttribute("firstName", currentUser.getFirstName());
+		request.setAttribute("lastName", currentUser.getLastName());
+	    return "employee";
+	}
+	
+	@RequestMapping(value="/createGroup",method = RequestMethod.POST)
+	public String createGroup(HttpServletRequest request, HttpSession session) {
+		System.out.println("/createGroup");
+		User currentUser = (User) session.getAttribute("currentUser");
+	   	String groupName = request.getParameter("groupName");
+	   	String activePoint = request.getParameter("activePoint");		
+		if (groupName != null) {
+			Group group = new Group(groupName, Integer.parseInt(activePoint));
+			Group thisGroup = generalDao.createGroup(group);
+			Employee thisEmployee = employeeDao.findEmployeeById(currentUser.getId());
+			groupDao.setEmployeeForGroup(thisEmployee, thisGroup);
+			return "redirect:employee";
+		}	  
+	    return "createGroup";
 	}
 
 	@RequestMapping(value="/recruiter",method = RequestMethod.GET)
 	public ModelAndView welcomeRecruiter(HttpServletRequest request, HttpSession session) {
-		System.out.println("welcome");
+		System.out.println("/recruiter");
 		User currentUser = (User) session.getAttribute("currentUser");
 		
 		//model.addAttribute("message", currentUser.getEmail());
@@ -96,23 +133,125 @@ public class LoginRegisterController {
 	}
 	
 	@RequestMapping(value="/admin",method = RequestMethod.GET)
-	public ModelAndView welcomeAdmin(HttpServletRequest request, HttpSession session) {
-		System.out.println("welcome");
+	public String welcomeAdmin(Model model, HttpServletRequest request, HttpSession session) {
+		System.out.println("/admin");
 		User currentUser = (User) session.getAttribute("currentUser");
 		List<User> users = userDao.findAllUsers();
 		//model.addAttribute("message", currentUser.getEmail());
 		//model.addAttribute("test", "Goodbye Word");
 		
-	    ModelAndView model = new ModelAndView("admin");
-	    model.addObject("users", users);
-	    model.addObject("firstName", currentUser.getFirstName());
-	    model.addObject("lastName", currentUser.getLastName());
-	    
-
-	    
-	    return model;
+	    //ModelAndView modelN = new ModelAndView("admin");
+		request.setAttribute("users", users);
+		request.setAttribute("firstName", currentUser.getFirstName());
+		request.setAttribute("lastName", currentUser.getLastName());
+	    //modelN.addObject("users", users);
+	    //modelN.addObject("firstName", currentUser.getFirstName());
+	    //modelN.addObject("lastName", currentUser.getLastName());
+	    return "admin";//modelN;
 	}
 	
+	@RequestMapping(value="/updateuser",method = RequestMethod.POST)
+	public String updateUser(Model model, HttpServletRequest request, HttpSession session) {
+		System.out.println("/updateUser");
+	   	String id = request.getParameter("id");	
+	   	String userRole = request.getParameter("userRole");
+	   	String firstName = request.getParameter("firstName");
+    	String lastName = request.getParameter("lastName");		
+	   	String email = request.getParameter("email");
+    	String password = request.getParameter("password");		
+		if (userRole != null && userRole.equals("Student")) {
+			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+			studentDao.updateStudent(Integer.parseInt(id), student);
+			return "redirect:admin";
+		}else if(userRole != null && userRole.equals("Employee")){
+			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+			employeeDao.updateEmployee(Integer.parseInt(id), employee);
+			return "redirect:admin";
+		}else if(userRole != null && userRole.equals("Recruiter")){
+			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+			recruiterDao.updateRecruiter(Integer.parseInt(id), recruiter);
+			return "redirect:admin";
+		}
+		//model.addAttribute("message", currentUser.getEmail());
+		//model.addAttribute("test", "Goodbye Word");
+		return "updateuser";
+	}
+
+	@RequestMapping(value="/deleteuser",method = RequestMethod.POST)
+	public String adminDeleteUser(Model model, HttpServletRequest request, HttpSession session) {
+		System.out.println("/deleteuser");
+	   	String id = request.getParameter("id");	
+	   	if(id != null){
+	   		userDao.deleteUserById(Integer.parseInt(id));
+			return "redirect:admin";
+	   	}
+	   	return "deleteuser";
+	}
+	
+    @RequestMapping(value="/createuser", method = RequestMethod.POST)
+    public String createUser(Model model, HttpServletRequest request, HttpSession session)  
+    { 
+    	String userRole = request.getParameter("userRole");
+    	String firstName = request.getParameter("firstName");
+    	String lastName = request.getParameter("lastName");
+    	String email = request.getParameter("email");
+    	String password = request.getParameter("password");
+		System.out.println("createser");
+		System.out.println(userRole);
+		if (userRole != null && userRole.equals("Student")) {
+			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+			generalDao.createStudent(student);
+			return "redirect:admin";
+		}else if(userRole != null && userRole.equals("Employee")){
+			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+			generalDao.createEmployee(employee);
+			return "redirect:admin";
+		}else if(userRole != null && userRole.equals("Recruiter")){
+			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+			generalDao.createRecruiter(recruiter);
+			return "redirect:admin";
+		}else if(userRole != null && userRole.contentEquals("Admin")){
+			Admin admin = new Admin(firstName, lastName, email, password, userRole);
+			generalDao.createAdmin(admin);
+			return "redirect:admin";
+		}
+    	return "createuser";
+    }
+/*
+	@RequestMapping(value="/createuser",method = RequestMethod.POST)
+	public String adminCreateUser(Model model, HttpServletRequest request, HttpSession session) {
+
+	   	String userRole = request.getParameter("userRole");
+	   	String firstName = request.getParameter("firstName");
+    	String lastName = request.getParameter("lastName");		
+	   	String email = request.getParameter("email");
+    	String password = request.getParameter("password");	
+		System.out.println("createuser");
+		System.out.println(userRole);
+		System.out.println(firstName);
+		System.out.println(lastName);
+		System.out.println(email);
+		System.out.println(password);
+		if (userRole.equals("Student")) {
+			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+			generalDao.createStudent(student);
+			return "redirect:admin";
+		}else if(userRole.equals("Employee")){
+			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+			generalDao.createEmployee(employee);
+			return "redirect:admin";
+		}else if(userRole.equals("Recruiter")){
+			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+			generalDao.createRecruiter(recruiter);
+			return "redirect:admin";
+		}else if(userRole.contentEquals("Admin")){
+			Admin admin = new Admin(firstName, lastName, email, password, userRole);
+			generalDao.createAdmin(admin);
+			return "redirect:admin";
+		}
+		return "createuser";
+	}
+	*/
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	public String register(HttpServletRequest request, @RequestParam("userRole")String userRole, @RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName, @RequestParam("email")String email, @RequestParam("password")String password, HttpSession session){
 	//user object will automatically be populated with values sent from browser or jsp page. Provide your authentication logic here
