@@ -70,8 +70,9 @@ public class StudentController {
 	public String apply(HttpServletRequest request, HttpSession session){
 		System.out.println("Start Application");
 		String studentId = request.getParameter("id");
-		int sid = Integer.parseInt(studentId);
 		String jobTitle = request.getParameter("jobTitle");
+		if (studentId!=null & jobTitle!=null) {
+		int sid = Integer.parseInt(studentId);
 		Student student = studentDao.findStudentById(sid);
 		Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
 		generalDao.createJob(job);
@@ -79,7 +80,8 @@ public class StudentController {
 		generalDao.createApplication(application);
 		studentDao.addApplicationToStudent(application, student);
 		session.setAttribute("currentUser", student);
-		return "redirect:student";
+		return "redirect:student";}
+		return "apply";
 	}
 	
 	
