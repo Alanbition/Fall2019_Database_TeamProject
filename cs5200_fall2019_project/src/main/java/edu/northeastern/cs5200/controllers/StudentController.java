@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.northeastern.cs5200.daos.ApplicationDao;
 import edu.northeastern.cs5200.daos.GeneralDao;
 import edu.northeastern.cs5200.daos.GroupDao;
+import edu.northeastern.cs5200.daos.JobDao;
 import edu.northeastern.cs5200.daos.RecruiterDao;
 import edu.northeastern.cs5200.daos.StudentDao;
 import edu.northeastern.cs5200.models.Application;
@@ -46,6 +48,8 @@ public class StudentController {
 
 	@Autowired
 	StudentDao studentDao;
+	@Autowired
+	ApplicationDao applicationDao;
 	@Autowired
 	GroupDao groupDao;
 	@Autowired
@@ -83,8 +87,9 @@ public class StudentController {
 		generalDao.createRecruiter(recruiter);
 		Application application = new Application("description", "referral", "process");
 		generalDao.createApplication(application);
-		recruiterDao.addJobToRecruiter(job, recruiter);
-		studentDao.addApplicationToStudent(application, student);
+		//recruiterDao.addJobToRecruiter(job, recruiter);
+		//studentDao.addApplicationToStudent(application, student);
+		applicationDao.setApplicationForJob(job,application);
 		studentDao.addApplicationToStudent(application, student);
 		session.setAttribute("currentUser", student);
 		return "redirect:student";}
