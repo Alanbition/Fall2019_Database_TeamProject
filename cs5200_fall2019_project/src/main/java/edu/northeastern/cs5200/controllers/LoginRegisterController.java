@@ -78,6 +78,20 @@ public class LoginRegisterController {
 	    return "student";
 	}
 
+	@RequestMapping(value="/addActivePoints",method = RequestMethod.POST)
+	public String addActivePoints(HttpServletRequest request, HttpSession session) {
+		System.out.println("/addActivePoints");
+		User currentUser = (User) session.getAttribute("currentUser");
+	   	String id = request.getParameter("id");
+		request.setAttribute("employees", employeeDao.findAllEmployee());
+		if (id != null) {
+			Employee thisEmployee = employeeDao.findEmployeeById(Integer.parseInt(id));
+			employeeDao.addPointsToEmployee(thisEmployee);
+			return "redirect:student";
+		}	  
+	    return "addActivePoints";
+	}
+
 	@RequestMapping(value="/addGroup",method = RequestMethod.POST)
 	public String addGroup(HttpServletRequest request, HttpSession session) {
 		System.out.println("/addGroup");
@@ -99,9 +113,12 @@ public class LoginRegisterController {
 		User currentUser = (User) session.getAttribute("currentUser");
 		Employee thisEmployee = employeeDao.findEmployeeById(currentUser.getId());		
 		Group group = employeeDao.getEmployeeManagedGroup(thisEmployee);
-		List<Student> students = studentDao.findStudentsInGroup(group);
+		if (group != null) {
+			List<Student> students = studentDao.findStudentsInGroup(group);	
+			request.setAttribute("students", students);
+		}
+		request.setAttribute("points", thisEmployee.getActivePoint());
 		request.setAttribute("group", group);
-		request.setAttribute("students", students);
 		request.setAttribute("firstName", currentUser.getFirstName());
 		request.setAttribute("lastName", currentUser.getLastName());
 	    return "employee";
@@ -168,15 +185,15 @@ public class LoginRegisterController {
 	   	String email = request.getParameter("email");
     	String password = request.getParameter("password");		
 		if (userRole != null && userRole.equals("Student")) {
-			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+			Student student = new Student(firstName, lastName, password, email, userRole, false, false);
 			studentDao.updateStudent(Integer.parseInt(id), student);
 			return "redirect:admin";
 		}else if(userRole != null && userRole.equals("Employee")){
-			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+			Employee employee = new Employee(firstName, lastName, password, email, userRole,  "", false,"", 0);
 			employeeDao.updateEmployee(Integer.parseInt(id), employee);
 			return "redirect:admin";
 		}else if(userRole != null && userRole.equals("Recruiter")){
-			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+			Recruiter recruiter = new Recruiter(firstName, lastName, password, email, userRole, false, "", "");
 			recruiterDao.updateRecruiter(Integer.parseInt(id), recruiter);
 			return "redirect:admin";
 		}
@@ -207,19 +224,19 @@ public class LoginRegisterController {
 		System.out.println("createser");
 		System.out.println(userRole);
 		if (userRole != null && userRole.equals("Student")) {
-			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+			Student student = new Student(firstName, lastName, password, email, userRole, false, false);
 			generalDao.createStudent(student);
 			return "redirect:admin";
 		}else if(userRole != null && userRole.equals("Employee")){
-			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+			Employee employee = new Employee(firstName, lastName, password, email, userRole,  "", false,"", 0);
 			generalDao.createEmployee(employee);
 			return "redirect:admin";
 		}else if(userRole != null && userRole.equals("Recruiter")){
-			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+			Recruiter recruiter = new Recruiter(firstName, lastName, password,email,  userRole, false, "", "");
 			generalDao.createRecruiter(recruiter);
 			return "redirect:admin";
 		}else if(userRole != null && userRole.contentEquals("Admin")){
-			Admin admin = new Admin(firstName, lastName, email, password, userRole);
+			Admin admin = new Admin(firstName, lastName, password, email, userRole);
 			generalDao.createAdmin(admin);
 			return "redirect:admin";
 		}
@@ -261,26 +278,31 @@ public class LoginRegisterController {
 	}
 	*/
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String register(HttpServletRequest request, @RequestParam("userRole")String userRole, @RequestParam("firstName")String firstName,@RequestParam("lastName")String lastName, @RequestParam("email")String email, @RequestParam("password")String password, HttpSession session){
+	public String register(HttpServletRequest request,HttpSession session){
 	//user object will automatically be populated with values sent from browser or jsp page. Provide your authentication logic here
 		System.out.println("Start Registration");
-		if (userRole.equals("Student")) {
-			Student student = new Student(firstName, lastName, email, password, userRole, false, false);
+    	String userRole = request.getParameter("userRole");
+    	String firstName = request.getParameter("firstName");
+    	String lastName = request.getParameter("lastName");
+    	String email = request.getParameter("email");
+    	String password = request.getParameter("password");
+		if (userRole != null && userRole.equals("Student")) {
+			Student student = new Student(firstName, lastName, password, email, userRole, false, false);
 			generalDao.createStudent(student);
 			session.setAttribute("currentUser", student);
 			return "redirect:student";
-		}else if(userRole.equals("Employee")){
-			Employee employee = new Employee(firstName, lastName, email, password, userRole,  "", false,"", 0);
+		}else if(userRole != null && userRole.equals("Employee")){
+			Employee employee = new Employee(firstName, lastName, password, email, userRole,  "", false,"", 0);
 			generalDao.createEmployee(employee);
 			session.setAttribute("currentUser", employee);
 			return "redirect:employee";
-		}else if(userRole.equals("Recruiter")){
-			Recruiter recruiter = new Recruiter(firstName, lastName, email, password, userRole, false, "", "");
+		}else if(userRole != null && userRole.equals("Recruiter")){
+			Recruiter recruiter = new Recruiter(firstName, lastName, password, email, userRole, false, "", "");
 			generalDao.createRecruiter(recruiter);
 			session.setAttribute("currentUser", recruiter);
 			return "redirect:recruiter";
-		}else if(userRole.contentEquals("Admin")){
-			Admin admin = new Admin(firstName, lastName, email, password, userRole);
+		}else if(userRole != null && userRole.contentEquals("Admin")){
+			Admin admin = new Admin(firstName, lastName, password, email, userRole);
 			generalDao.createAdmin(admin);
 			session.setAttribute("currentUser", admin);
 			return "redirect:admin";

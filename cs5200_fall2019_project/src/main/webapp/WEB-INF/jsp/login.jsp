@@ -12,5 +12,8 @@
     <br/>
     <button>Login</button>
     <br/>
+ 
+</form>
+<form id="register" action="register" method="post">
     <button>back</button>   
 </form>

@@ -53,6 +53,13 @@ public class EmployeeDao {
 		Employee e = employeeRepository.findEmployeeById(eid);
 		return e;
     }
+	
+	public Employee addPointsToEmployee(Employee employee) {
+		int curpoint = employee.getActivePoint();
+		curpoint = curpoint + 1;
+		employee.setActivePoint(curpoint);
+		return employeeRepository.save(employee);
+    }
 
 	public Group getEmployeeManagedGroup(Employee employee) {
 		

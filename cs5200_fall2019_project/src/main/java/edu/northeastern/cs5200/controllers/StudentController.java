@@ -83,15 +83,15 @@ public class StudentController {
 		if (studentId!=null & jobTitle!=null) {
 			int sid = Integer.parseInt(studentId);
 			Student student = studentDao.findStudentById(sid);
-			Job job = new Job(jobTitle,"Description of the job posting","Boston","","Authentic");
+			Job job = new Job(jobTitle, "Description of the job posting","Boston","","Authentic");
 			Job thisJob = generalDao.createJob(job);
 			Recruiter recruiter = new Recruiter("Alan", "Wang", "password", "email", "Recruiter", false, "APIRecruiter","Authentic");
 			Recruiter thisRecruiter = generalDao.createRecruiter(recruiter);
-			Application application = new Application("Applied Job description", "referral", "Not Viewed");
+			Application application = new Application(jobTitle, "referral", "Not Viewed");
 			Application thisApplication = generalDao.createApplication(application);
 			//jobDao.setRecruiterForJob(thisRecruiter, thisJob);
 			//recruiterDao.addJobToRecruiter(thisJob, thisRecruiter);
-			thisApplication = applicationDao.setJobForApplication(thisJob, thisApplication);
+			//thisApplication = applicationDao.setJobForApplication(thisJob, thisApplication);
 			studentDao.addApplicationToStudent(thisApplication, student);
 		
 			session.setAttribute("currentUser", student);

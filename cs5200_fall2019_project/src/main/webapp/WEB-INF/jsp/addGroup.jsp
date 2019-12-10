@@ -6,6 +6,7 @@
         <td>${group.id}</td>    
         <td>${group.name}</td>
         <td>${group.activePoint}</td>
+    	<br/>
     </tr>
 </c:forEach>
 <form id="addGroup" action="addGroup" method="post">

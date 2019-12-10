@@ -3,7 +3,9 @@
 <form id="welcome" action="welcome" method="get">
     <label>Welcome! ${lastName} ${firstName} AS Employee</label> 
 </form>
-<label><b>Group Created:</b> ${group.name}}</label>
+<label><b>My Active Points:</b> ${points}</label>
+<br/>
+<label><b>Group Created:</b> ${group.name}</label>
 <br/>
 <label><b>Students Joined:</b></label>
 <c:forEach items="${students}" var="student">
