@@ -73,7 +73,8 @@ public class LoginRegisterController {
 			employees.add(groupDao.getGroupEmployee(group));		
 		}
 		request.setAttribute("employees", employees);
-		request.setAttribute("applications", jobs);
+		request.setAttribute("jobs", jobs);
+		request.setAttribute("applications", applications);
 		request.setAttribute("groups", groups);
 		request.setAttribute("resumes", resumes);		
 		request.setAttribute("firstName", currentUser.getFirstName());
