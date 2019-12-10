@@ -4,8 +4,11 @@
 <form id="apply" action="apply" method="post">
 <h2>Application </h2>
 <br/>
-<label>UserId: </label>
-    <input type="number" name="id">
+<label>Student Email: </label>
+    <input type="text" name="email">
+    <br/>
+    <label>Password: </label>
+    <input type="text" name="password">
     <br/>
     <label>Job Title: </label>
     <input type="text" name="jobTitle">
